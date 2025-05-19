@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unreal Engine Blueprint Mockup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #1e1e1e;
+      font-family: 'Segoe UI', sans-serif;
+      color: #ccc;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #2c2c2c;
+      display: flex;
+      flex-direction: column;
+      border-right: 2px solid #222;
+      padding: 10px;
+    }
+
+    .sidebar h2 {
+      color: #f5f5f5;
+      font-size: 16px;
+      margin: 10px 0 5px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 3px;
+    }
+
+    .component-list,
+    .variable-list {
+      margin-bottom: 20px;
+    }
+
+    .component-item,
+    .variable-item {
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .component-item:hover,
+    .variable-item:hover {
+      background-color: #3a3a3a;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: left;
+      gap: 3%;
+	  padding-top: 30px;
+	  padding-bottom: 40px;
+	  background-color: #2b2b2b;
+      color: #fff;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      padding-left: 10%;
+	  padding-right: 10%;
+      border-bottom: 2px solid #111;
+    }
+
+    .tab {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+	  font-size: 35px;
+    }
+	.tab_divider {
+		color: #4A4A4A;
+		text-shadow:
+    	-1px -1px 0 #4A4A4A,
+    	1px -1px 0 #4A4A4A,
+    	-1px 1px 0 #4A4A4A,
+    	1px 1px 0 #4A4A4A; 
+	}
+
+/*
+    .tab.active {
+      background-color: #1e1e1e;
+      border: 1px solid #444;
+      border-bottom: none;
+    }
+*/
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .graph-area {
+      flex: 1;
+      overflow: auto;
+      padding: 20px;
+      background: repeating-linear-gradient(
+        45deg,
+        #1e1e1e,
+        #1e1e1e 20px,
+        #1a1a1a 20px,
+        #1a1a1a 40px
+      );
+      position: relative;
+    }
+
+    .card {
+	  vertical-align: middle;
+      background: #1e1e1e;
+      border: 2px solid black;
+      border-radius: 10px;
+      width: fit-content;
+      box-shadow: 0 0 5px #000;
+      overflow: hidden;
+    }
+
+    .card-header {
+	  color: white;
+      background-color: #aa1d1d;
+      padding: 10px 20px;
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+	  
+    }
+
+    .card-header .close-box {
+      width: 15px;
+      height: 15px;
+      background: black;
+	  border: 3px solid #8E0000;
+
+    }
+	
+	 .Node_Start {
+		align-self: center;
+		margin-top: 50px;
+  		margin-left: 10%;
+	  }
+
+    .card-body {
+      padding: 20px;
+      background-color: #2c2c2c;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .card-body a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.2em;
+    }
+
+    .card-body a::after {
+      content: " »";
+      font-size: 1.5em;
+      margin-left: 5px;
+    }
+
+    .input,
+    .output {
+      margin: 5px 0;
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .wire {
+      position: absolute;
+      background-color: #55aaff;
+      height: 2px;
+      transform: rotate(10deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>Components</h2>
+    <div class="component-list">
+      <div class="component-item">➤ BP_Fruit_Pickup (Self)</div>
+      <div class="component-item">↳ DefaultSceneRoot</div>
+      <div class="component-item">↳ FruitReady?</div>
+      <div class="component-item">↳ Collision</div>
+      <div class="component-item">↳ Fruit Model</div>
+    </div>
+
+    <h2>My Blueprint</h2>
+    <div class="variable-list">
+      <h3>GRAPHS</h3>
+      <div class="component-item">▶ EventGraph</div>
+      <h3>FUNCTIONS</h3>
+      <div class="component-item">↳ ConstructionScript</div>
+      <div class="component-item">↳ Update text</div>
+      <div class="component-item">↳ UpdateGrowth</div>
+      <h3>VARIABLES</h3>
+      <div class="variable-item">Growth Stage (Integer)</div>
+      <div class="variable-item">Current Growth (Float)</div>
+      <div class="variable-item">Max Growth Scale (Float)</div>
+      <div class="variable-item">Growth Cooldown (Float)</div>
+      <div class="variable-item">Fruit ready (Boolean)</div>
+      <div class="variable-item">inCooldown (Boolean)</div>
+      <div class="variable-item">Fruit Type (Enum)</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="topbar">
+      <div class="tab">Home</div> <div class="tab tab_divider"><b>|</b></div>
+      <div class="tab">Projects</div> <div class="tab tab_divider"><b>|</b></div>
+      <div class="tab">About</div> <div class="tab tab_divider"><b>|</b></div>
+      <div class="tab">Contact</div>
+    </div>
+
+    <div class="graph-area">
+      <!-- Nodes with fixed positions -->
+      <div align="center" class="card Node_Start">
+      <div class="card-header">
+        “Mecha” Andrew Dresel-Kurtz
+        <div class="close-box"></div>
+      </div>
+      <div class="card-body">
+        <a href="#">Explore</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</body>
+</html>

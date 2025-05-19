@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bezier Through Div IDs</title>
+  <style>
+	  .graph-area {
+    flex: 1;
+    overflow: auto;
+/*    padding: 20px;*/
+    background: repeating-linear-gradient( 45deg, #1e1e1e, #1e1e1e 20px, #1a1a1a 20px, #1a1a1a 40px );
+/*    position: absolute;*/
+/*		  z-index: 0;*/
+}
+	  .node {
+    /*	  vertical-align: middle;*/
+    position: relative;
+    background: #1e1e1e;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 25pc;
+ 	min-height: 300px;
+	height: auto;
+    box-shadow: 0 0 5px #000;
+    overflow: hidden;
+    margin: 20px;
+    flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	transition: height 0.4s ease, transform 0.4s ease;
+}
+.node-header {
+    color: white;
+    padding: 10px 20px;
+    height: 50px;
+/*	margin: 50px;*/
+/*	min-height: 10%;*/
+/*	height: auto;*/
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	flex-shrink: 0;
+}
+	.node-header p {
+		font-size: 2em;
+		word-wrap: break-word;
+	}	
+.node-header .node-output-detail {
+    width: 25px;
+    height: 25px;
+    background: black;
+    border: 3px solid #8E0000;
+}
+	
+.node-body {
+    background-color: #2c2c2c;
+    position: relative;
+    padding: 0 25px;  /*create room for the icons inside*/
+    display: flex;
+    align-items: center;
+	display: flex;
+	flex: 1;
+	overflow: auto;  /*optional: adds scrolling if content overflows */
+
+}
+.node-left-icon, .node-right-icon {
+    position: absolute;
+    font-size: 50px;
+    top: 15%;
+    /*  transform: translateY(-50%);*/
+    color: white;
+    pointer-events: none;
+}
+.node-left-icon {
+    left: 2px;
+	position: absolute;
+}
+.node-right-icon {
+    right: 2px;
+	position: absolute;
+}
+.node-contents {
+    flex: 1;
+    text-align: left;
+	padding-left: 5%;
+	padding-right: 5%;
+}
+	.node-info {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    gap: 10px; /* space between dot and text */
+}
+	.node-info-section {
+    flex-shrink: 0;
+}
+	.node-lineAnchor {
+		 z-index: 1;
+		position: relative;
+	}
+
+.node-info p {
+    margin: 0;
+    color: #fff;
+	font-size: 17px;
+	outline-color:white;
+	outline-style: solid;
+	outline-width: thin;
+	background-color: rgba(33,33,33,1.00);
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+/* Node Info */
+.node-info .node-info-section {
+  width: 25px;
+  height: 25px;
+  border-radius: 50px;
+  background: black;
+  border: 3px solid #8E0000;
+}
+
+.node-group {
+    display: flex;
+    justify-content: center; /* or space-between */
+    gap: 40px;
+    margin: 0px 50px;
+    flex-wrap: wrap;
+	/* optional: wrap on small screens */
+}
+	  
+	  
+	  
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .box {
+      position:fixed;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    #anchor1   { top: 100px; left: 350px; }
+    #anchor2   { top: 200px; left: 350px; }
+    #anchor3 { top: 200px; left: 200px; }
+    #anchor4  { top: 350px; left: 100px; }
+	#anchor5  { top: 350px; left: 500px;}
+	  #anchor6  { top: 500px; left: 500px;}
+	  #anchor7  { top: 500px; left: 300px;}
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="1280" height="3000"></canvas>
+  <div id="anchor1" class="box"></div>
+  <div id="anchor2" class="box"></div>
+  <div id="anchor3" class="box"></div>
+  <div id="anchor4" class="box"></div>
+	<div id="anchor5" class="box"></div>
+	<div id="anchor6" class="box"></div>
+	<div id="anchor7" class="box"></div>
+
+	<div class="graph-area">
+		
+    <div class="node-group" style="">
+		
+      <!--Start Node-->
+      <div class="node" style="width: 40pc; background-color: #FF3535">
+        <div class="node-header"> <p>"Mecha" Andrew Dresel-Kurtz</p>
+          <div class="node-output-detail" style="border: 3px solid #B00F0F"></div>
+        </div>
+        <div class="node-body">
+          <div class="node-contents" href="#">
+				<!--Start Node Info-->
+			  <div class="node-info">
+				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+				  <p style="font-size: 20px">Game Designer and Generalist</p>
+			  </div>
+			  <br>
+				<!--End Node Info-->
+			  
+			  <!--Start Node Info-->
+			  <div class="node-info">
+				  <div class="node-info-section" style="border: 3px solid #11B141"></div>
+				  <p style="font-size: 20px">Welcome to my website! Please explore and experience all of my work I have to offer</p>
+			  </div>
+			  <br>
+				<!--End Node Info-->
+			</div>
+          <span class="node-right-icon node-lineAnchor" id="anchor7">▶</span> </div>
+      </div> <!--End Node-->
+    </div><!--End Node Group-->
+		
+		</div>
+	
+	
+	
+</body>
+</html>
+<script>
+    class CubicBezier {
+      static distance(a, b) {
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      static polar(a, b) {
+        return Math.atan2(b.y - a.y, b.x - a.x);
+      }
+
+      static drawCurve(ctx, a, b, c1, c2) {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, b.x, b.y);
+        ctx.stroke();
+      }
+
+      static curveThroughPoints(ctx, points, z = 0.5, angleFactor = 0.75, horizontalThreshold = 1) {
+  if (points.length < 2) return;
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] || p2;
+
+    // If p1 and p2 are horizontally aligned (within threshold), draw straight line
+    if (Math.abs(p1.y - p2.y) <= horizontalThreshold) {
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+      continue;
+    }
+
+    const angleA = CubicBezier.polar(p0, p2);
+    const angleB = CubicBezier.polar(p1, p3);
+    const lenA = CubicBezier.distance(p0, p1) * z;
+    const lenB = CubicBezier.distance(p1, p2) * z;
+
+    const c1 = {
+      x: p1.x + Math.cos(angleA) * lenA * angleFactor,
+      y: p1.y + Math.sin(angleA) * lenA * angleFactor
+    };
+
+    const c2 = {
+      x: p2.x - Math.cos(angleB) * lenB * angleFactor,
+      y: p2.y - Math.sin(angleB) * lenB * angleFactor
+    };
+
+    CubicBezier.drawCurve(ctx, p1, p2, c1, c2);
+  }
+}
+
+
+      static getElementCenter(id, canvas) {
+        const el = document.getElementById(id);
+        if (!el) return null;
+
+        const elRect = el.getBoundingClientRect();
+        const canvasRect = canvas.getBoundingClientRect();
+
+        return {
+          x: elRect.left + elRect.width / 2 - canvasRect.left,
+          y: elRect.top + elRect.height / 2 - canvasRect.top
+        };
+      }
+
+      static curveThroughElementIDs(ctx, canvas, ids, z = 0.5, angleFactor = 0.75) {
+        const points = ids.map(id => CubicBezier.getElementCenter(id, canvas)).filter(Boolean);
+        CubicBezier.curveThroughPoints(ctx, points, z, angleFactor);
+      }
+    }
+
+    // Main
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#3498db";
+
+    const ids = ["anchor1", "anchor2", "anchor3", "anchor4", "anchor5", "anchor6", "anchor7"];
+    CubicBezier.curveThroughElementIDs(ctx, canvas, ids);
+  </script>
