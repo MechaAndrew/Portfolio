@@ -2,41 +2,53 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Mecha Andrew Portfolio</title>
+<title>Mecha Andrew | Contact</title>
 
 <link href="StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 
-<!-- Sidebar -->
-<div class="sidebar"> 
-  <!-- Logo -->
-  <h1>
-    <div class="icon"> <img class="icon" src="Modern Mecha Mask2.2.png" width="502" height="502" alt=""/> </div>
-  </h1>
-  <button onClick="dropDown()" type="button" class="collapsible">▶ PROJECTS</button>
-  <div class="project-list">
-    <p class="project-item">↳ Livewire</p>
-    <p class="project-item">↳ Lemondale</p>
-    <p class="project-item">↳ Shipit</p>
-  </div>
-</div>
-<div class="content">
-  <div class="topbar">
-	<a href="index.html" style=" text-decoration: none; display: block;">
-		<div class="tab"> <img class="tab" src="Icon Home.png" width="40" height="43" alt=""/> Home</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="Games.html" style=" text-decoration: none; display: block;">
-		<div class="tab"> <img class="tab" src="Icon Projects.png" width="47" height="28" alt=""/> Games</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="About.html" style=" text-decoration: none; display: block;">
-	  <div class="tab"> <img class="tab" src="Icon About.png" width="42" height="42" alt=""/> About</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="Contact.html" style=" text-decoration: none; display: block;">
-	  <div class="tab"> <img class="tab" src="Icon Contact.png" width="42" height="31" alt=""/> Contact</div></a>  
-    <div class="tab tab_divider"><b>|</b></div>
-  </div>
+	<script>
+	function setupSidebar() {
+  var coll = document.getElementsByClassName("collapsible");
+  for (var i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+        this.innerHTML = this.innerHTML.replace("▼", "▶");
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        this.innerHTML = this.innerHTML.replace("▶", "▼");
+      }
+    });
+  }
+}
+
+// Fetch Sidebar and then setup event listeners
+fetch('SideBar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('Sidebar').innerHTML = html;
+    setupSidebar(); // <-- Call this after sidebar is loaded
+  });
+	
+  fetch('Topbar.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('Topbar').innerHTML = html);
   
+
+	setupSidebar();
+	
+</script>
+
+<body>
+	<div id="Sidebar"></div>
+
+	
+<div class="content">
+	
+	<div id="Topbar"></div>  
   <!-- Move canvas inside graph-area and remove the old canvas above -->
   <div class="graph-area" style="position: relative;">
     <canvas id="canvas" ></canvas>

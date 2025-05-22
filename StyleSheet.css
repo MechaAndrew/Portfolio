@@ -28,20 +28,25 @@ body {
     font-family: 'Segoe UI', sans-serif;
     color: #ccc;
     display: flex;
+    flex-direction: row; /* Make sidebar and content side by side */
     height: 100vh;
-    overflow: auto;
+    min-height: 100vh;
+    overflow: hidden;
 }
-
+#Sidebar {
+    height: 100vh;
+    min-height: 100vh;
+    flex-shrink: 0;
+}
 .sidebar {
-    width: 200px;
-    margin: 10px 0 5px;
+    width: 220px; /* or your preferred width */
+    min-height: 100vh;
+    height: 100vh;
     background-color: #2c2c2c;
     display: flex;
     flex-direction: column;
     border-right: 10px solid #1A1A1A;
     padding: 10px;
-    padding-bottom: 3px;
-	z-index: 2;
 }
 .icon {
     background: white;
@@ -121,7 +126,9 @@ body {
     background-color: #1A1A1A;
     color: #fff;
     height: 32px;
-/*    display:;*/
+    flex-direction: row;
+    align-items: left;
+/*	overflow: auto;*/
     align-items: center;
 	background: repeating-linear-gradient( 45deg, #C9B64E, #45461E 20px, #1a1a1a 20px, #1a1a1a 40px );
 	text-shadow: 2px 2px #000000;
@@ -147,6 +154,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-height: 100vh;
 }
 #connectionCanvas {
     position: absolute;
@@ -177,16 +185,24 @@ body {
 .node-header {
     color: white;
     padding: 10px 20px;
-    height: 50px;
+    /* Remove height: 50px; */
+    min-height: 50px; /* Ensures at least 50px, but grows if needed */
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
-	flex-shrink: 0;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 	.node-header p {
-		font-size: 2em;
-		word-wrap: break-word;
+    margin: 0;
+    width: 100%;
+    display: block;
+    font-size: 2em;
+    line-height: 1.1;
+    white-space: normal;      /* Allow wrapping */
+    overflow-wrap: break-word;
+    word-break: break-word;
 	}	
 .node-header .node-output-detail {
     width: 25px;
@@ -214,8 +230,9 @@ body {
 }
 
 .node-video {
+	object-fit: contain;
   display: block;
-  width: 150%;
+  width: 130%;
   height: auto;
   margin-left: -50px;
 }
@@ -280,7 +297,9 @@ body {
     top: 15%;
     /*  transform: translateY(-50%);*/
     color: white;
-    pointer-events: none;
+/*    pointer-events: none;*/
+/*	z-index: 10;*/
+	
 }
 .node-left-icon {
     left: 2px;
@@ -289,6 +308,7 @@ body {
 .node-right-icon {
     right: 2px;
 	position: absolute;
+	cursor: pointer;
 }
 .node-contents {
     flex: 1;
@@ -325,13 +345,41 @@ body {
   border-radius: 50px;
   background: black;
   border: 3px solid #8E0000;
+  
+}
+
+.node-info p{
+	font-size: 23px;
+}
+
+.node-lineAnchor:not(.node-left-icon):not(.node-right-icon) {
+  width: 48px;
+  height: 48px;
+  background-color: #fff;
+  color: transparent;
+  font-weight: bold;
+  font-size: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 2px solid #fff;
+  z-index: 10;
+  /* Fix vertical alignment in flex row */
+  margin-top: 0;
+  margin-bottom: 0;
+  /* Remove padding if present */
+  padding: 0;
+  /* Prevent line-height from affecting centering */
+  line-height: 1;
 }
 
 .node-group {
-    display: flex;
-    justify-content: center; /* or space-between */
-    gap: 40px;
-    margin: 0px 50px;
-    flex-wrap: wrap;
-	/* optional: wrap on small screens */
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* This is key! */
+  justify-content: center; /* or space-between, as needed */
+  gap: 10%;
+  flex-wrap: wrap;
 }

@@ -2,307 +2,245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Mecha Andrew Portfolio</title>
-
+<title>Mecha Andrew | Game Designer</title>
 <link href="StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+	<script>
+	function setupSidebar() {
+  var coll = document.getElementsByClassName("collapsible");
+  for (var i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+        this.innerHTML = this.innerHTML.replace("▼", "▶");
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        this.innerHTML = this.innerHTML.replace("▶", "▼");
+      }
+    });
+  }
+}
 
-<!-- Sidebar -->
-<div class="sidebar"> 
-  <!-- Logo -->
-  <h1>
-    <div class="icon"> <img class="icon" src="Modern Mecha Mask2.2.png" width="502" height="502" alt=""/> </div>
-  </h1>
-  <button onClick="dropDown()" type="button" class="collapsible">▶ PROJECTS</button>
-  <div class="project-list">
-    <p class="project-item">↳ Livewire</p>
-    <p class="project-item">↳ Lemondale</p>
-    <p class="project-item">↳ Shipit</p>
-  </div>
-</div>
-<div class="content">
-  <div class="topbar">
-	<a href="index.html" style=" text-decoration: none; display: block;">
-		<div class="tab"> <img class="tab" src="Icon Home.png" width="40" height="43" alt=""/> Home</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="Games.html" style=" text-decoration: none; display: block;">
-		<div class="tab"> <img class="tab" src="Icon Projects.png" width="47" height="28" alt=""/> Games</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="About.html" style=" text-decoration: none; display: block;">
-	  <div class="tab"> <img class="tab" src="Icon About.png" width="42" height="42" alt=""/> About</div></a>
-    <div class="tab tab_divider"><b>|</b></div>
-	<a href="Contact.html" style=" text-decoration: none; display: block;">
-	  <div class="tab"> <img class="tab" src="Icon Contact.png" width="42" height="31" alt=""/> Contact</div></a>  
-    <div class="tab tab_divider"><b>|</b></div>
-  </div>
+// Fetch Sidebar and then setup event listeners
+fetch('SideBar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('Sidebar').innerHTML = html;
+    setupSidebar(); // <-- Call this after sidebar is loaded
+  });
+	
+  fetch('Topbar.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('Topbar').innerHTML = html);
+  
+
+	setupSidebar();
+	
+</script>
+
+<body>
+		<div id="Sidebar"></div>
+	<div class="content">
+		<div id="Topbar"></div>
   
   <!-- Move canvas inside graph-area and remove the old canvas above -->
   <div class="graph-area" style="position: relative;">
     <canvas id="canvas" ></canvas>
-    <div class="construction-info" style="border: thick; outline-color: rgba(243,0,4,1.00)"><p>Mind the nodes, work still being updated</p>
-    </div>
-    <div class="node-group" style="gap:80%">
-		
+    <div class="construction-info" style="border: thick; outline-color: rgba(243,0,4,1.00); ">Mind the nodes, work still being updated </div>
+    <div class="node-group" style="gap:80%"> 
+      
       <!--Start Node-->
       <div class="node" style="width: 40pc; background-color: #FF3535">
-        <div class="node-header"> <p>"Mecha" Andrew Dresel-Kurtz</p>
+        <div class="node-header">
+          <p>"Mecha" Andrew Dresel-Kurtz</p>
           <div class="node-output-detail" style="border: 3px solid #B00F0F"></div>
         </div>
         <div class="node-body">
-          <div class="node-contents" href="#">
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p style="font-size: 20px">Game Designer and Generalist</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B141"></div>
-				  <p style="font-size: 20px">Welcome to my website! Please explore and experience all of my work I have to offer</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			</div>
-          <span class="node-right-icon node-lineAnchor" id="anchor1">▶</span> </div>
-      </div> <!--End Node-->
-    </div><!--End Node Group-->
-<br>
-	  
-	<!--Anchor Dot Points-->
-    <div class="node-group" style="gap: 80%;">
-
-				<!--Start Node-->
-      <a href="#recent_work1" style=" text-decoration: none; display: block;">
-  <div class="node" style="min-height: 140px;  background-color: #4DAF18">
-    <div class="node-header">
-      <p>Most recent Games</p>
+          <div class="node-contents" href="#"> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p>Game Designer and Generalist</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B141"></div>
+              <p style=" width: 60%;">Welcome to my website! Please explore and experience all of my work I have to offer</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+          </div>
+          <a href="#recent_work" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore ▶</span><br>
+          </a> </div>
+      </div>
+      <!--End Node--> 
     </div>
-    <div class="node-body">
-      <span class="node-right-icon node-lineAnchor" id="anchor3">◀</span>
-      <div class="node-contents">
-		<!--Start Node Info-->
-			  <div class="node-info">
-			    <div class="node-info-section" style="border: 3px solid #3D8616"></div>
-				  <p style="font-size: 20px">Click nodes to jump to the next node!</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-		  <!--Start Node Info-->
-		    <div class="node-info">
-			  <div class="node-info-section" style="border: 3px solid #3D8616"></div>
-			    <p style="font-size: 20px">You can find all games made in the "Games" top bar</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-		</div>
-      <span class="node-left-icon node-lineAnchor" id="anchor4">◀</span>
+    <!--End Node Group--> 
+    <br>
+    
+    <!--Start Node Group-->
+    <div class="node-group">
+      <div class="node-lineAnchor" id="anchor5">&xcirc;</div>
+      <!--Start Node-->
+      <div class="node" id="recent_work" style="min-height: 140px;  background-color: #4DAF18">
+        <div class="node-header">
+          <p>Most recent Games</p>
+        </div>
+        <div class="node-body"> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">◀</span> </a> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor3">◀</span> </a>
+          <div class="node-contents"> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #3D8616"></div>
+              <p style="font-size: 20px">Click videos to view more details on each project!<br>
+              </p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #3D8616"></div>
+              <p style="font-size: 20px">You can find all games made in the "Games" top bar</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+          </div>
+        </div>
+      </div>
+      <!--End Node-->
+      <p class="node-lineAnchor" id="anchor2">&xcirc;</p>
     </div>
-  </div>
-</a>
- <!--End Node-->
-    </div>
-	  <!--Anchor Dot Points-->
-	  
+    <!--End Node Group--> 
+    
     <!-- Nodes with dynamic positions-->
-     <div class="node-group" style="padding-top: 200px;">
-		 
-		<!--Start Node-->
-	<a href="#recent_work2" style=" text-decoration: none; display: block;">
+    <div class="node-group" style="padding-top: 200px;"> 
+      <!--Start Node-->
+      
       <div class="node" id="recent_work1" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>How Dandy</p>
+        <div class="node-header">
+          <p>Intergalactic Recovery Service</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"><span class="node-left-icon node-lineAnchor" id="anchor5">▶</span>
-          <div class="node-contents">
-			  <div class="video-container">
-				  <video class="node-video" muted loop playsinline src="HowDandyPortfolioClip.mp4"></video>
-				  <div class="play-wrapper">
-    				<div class="play-overlay"></div>
-  				  </div> <!-- Unicode triangle "Play" -->
-			  </div>
-
-			  
-			<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  
+        <div class="node-body"> <a href="#recent_work2" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">▶</span> </a> <a href="#recent_work2" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">▶</span> </a>
+          <div class="node-contents"> <a href="IntergalacticRecoveryService.html" style=" text-decoration: none; display: block;">
+            <div class="video-container">
+              <video class="node-video" muted loop playsinline src="IRSPortfolioClip.mp4"></video>
+              <div class="play-wrapper">
+                <div class="play-overlay"></div>
+              </div>
+              <!-- Unicode triangle "Play" --> 
+            </div>
+            </a> 
+            
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p>3D co-op Action Aventure Platformer.</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>2 Players will take the roles of the IRS Astronauts to retrieve the stolen packages from the "Malians" using their unique tools and teamwork.&nbsp;</p>
+            </div>
 			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
-          <span class="node-right-icon node-lineAnchor" id="anchor6">▶</span> </div>
-      </div> <!--End Node-->
-			
-	</a>
-	  <!--Start Node-->
-	<a href="#recent_work3" style=" text-decoration: none; display: block;">
-      <div class="node" id="recent_work2" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>Title</p>
-          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+            <!--End Node Info-->
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
+              <p>I worked as a 3D Modeler, animator, level designer, and UI designer for a student project</p>
+            </div>
+            <!--End Node Info--> 
+          </div>
         </div>
-        <div class="node-body"> <span class="node-left-icon node-lineAnchor" id="anchor7">▶</span>
-          <div class="node-contents" href="#">
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
-          <span class="node-right-icon node-lineAnchor" id="anchor8">▶</span> </div>
-      </div> <!--End Node-->
-		</a>
-			
-		<!--Start Node-->
-	<a href="#recent_work4" style=" text-decoration: none; display: block;">
-      <div class="node" id="recent_work3" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>Title</p>
-          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
-        </div>
-        <div class="node-body"> <span class="node-left-icon node-lineAnchor" id="anchor9">▶</span>
-          <div class="node-contents" href="#">
-
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
-          <span class="node-right-icon node-lineAnchor" id="anchor10">▶</span> </div>
-      </div> <!--End Node-->
-	</a>
-    </div><!--End Node Group-->
-	  
-	  <!--Anchor Dot Points-->
-    <div class="node-group" style="gap: 80%">
-      <p class="node-lineAnchor" id="anchor12">◐</p>
-      <p class="node-lineAnchor" id="anchor11">●</p>
+        <!--End Node Body--> 
+        
+      </div>
+      <!--End Node--> 
+      
     </div>
-	  <!--Anchor Dot Points-->
-	  
-	  <div class="node-group" style="padding-top: 200px;">
-		 
-		<!--Start Node-->
-	<a href="#recent_work5" style=" text-decoration: none; display: block;">
+    
+    <!--Anchor Dot Points-->
+    <div class="node-group" style="gap: 70%">
+      <p class="node-lineAnchor" id="anchor9">&xcirc;</p>
+      <p class="node-lineAnchor" id="anchor8">&xcirc;</p>
+    </div>
+    <!--Anchor Dot Points-->
+    
+    <div class="node-group" style="padding-top: 200px;"> 
+      
+      <!--Start Node--> 
+      <a href="#recent_work5" style=" text-decoration: none; display: block;">
       <div class="node" id="recent_work4" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>Title</p>
+        <div class="node-header">
+          <p>Title</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
         <div class="node-body"> <span class="node-left-icon node-lineAnchor" id="anchor13">▶</span>
-          <div class="node-contents" href="#">
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
+          <div class="node-contents" href="#"> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
+            </div>
+            <!--End Node Info--> 
+          </div>
           <span class="node-right-icon node-lineAnchor" id="anchor14">▶</span> </div>
-      </div> <!--End Node-->
-			
-	</a>
-	  <!--Start Node-->
-	<a href="#recent_work6" style=" text-decoration: none; display: block;">
+      </div>
+      <!--End Node--> 
+      
+      </a> 
+      <!--Start Node--> 
+      <a href="#recent_work6" style=" text-decoration: none; display: block;">
       <div class="node" id="recent_work5" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>Title</p>
+        <div class="node-header">
+          <p>Title</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
         <div class="node-body"> <span class="node-left-icon node-lineAnchor" id="anchor15">▶</span>
-          <div class="node-contents" href="#">
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
+          <div class="node-contents" href="#"> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
+            </div>
+            <!--End Node Info--> 
+          </div>
           <span class="node-right-icon node-lineAnchor" id="anchor16">▶</span> </div>
-      </div> <!--End Node-->
-		</a>
-			
-		<!--Start Node-->
-	<a href="#recent_work7" style=" text-decoration: none; display: block;">
-      <div class="node" id="recent_work6" style=" background-color: #35C9FF">
-        <div class="node-header"> <p>Title</p>
-          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
-        </div>
-        <div class="node-body"> <span class="node-left-icon node-lineAnchor" id="anchor17">▶</span>
-          <div class="node-contents" href="#">
-
-				<!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-			  <br>
-				<!--End Node Info-->
-			  
-			  <!--Start Node Info-->
-			  <div class="node-info">
-				  <div class="node-info-section" style="border: 3px solid #11B150"></div>
-				  <p>This is a long stream of text that should flow to the right of the red dot and expand the node horizontally to accommodate its full length. Keep typing and the container should stretch.</p>
-			  </div>
-				<!--End Node Info-->
-			</div>
-          <span class="node-right-icon node-lineAnchor" id="anchor18">▶</span> </div>
-      </div> <!--End Node-->
-	</a>
-      	
-    </div><!--End Node Group-->
-	  
+      </div>
+      <!--End Node--> 
+      </a> 
+      
+       </div>
+    <!--End Node Group--> 
     
   </div>
   <!--End Graph--> 
 </div>
-<!--End Content--> 
+<!--End Content-->
 
 </body>
 </html>
-	<script type="text/javascript" src="Script.js"></script>
 
+<script type="text/javascript" src="Script.js"></script>

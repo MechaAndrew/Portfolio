@@ -18,7 +18,7 @@ for (i = 0; i < coll.length; i++) {
 	//Side Bar Drop Down code
 	
 	//Scroll Down the clicked code
-	document.querySelectorAll('a[href^="#recent_work"]').forEach(link => {
+document.querySelectorAll('a[href^="#recent_work"], a[href^="#work_detail"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault(); // prevent default anchor jump
 
@@ -34,6 +34,7 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 });
+
 	//Scroll Down the clicked code end
 
 
@@ -196,7 +197,7 @@ function draw() {
 
   const anchorPoints = getAnchorPoints();
   if (anchorPoints.length > 1) {
-    CubicBezier.curveThroughPoints(ctx, anchorPoints, 0.15, 2);
+    CubicBezier.curveThroughPoints(ctx, anchorPoints, 0.15, 2.5);
   }
 }
 
@@ -210,6 +211,13 @@ function scheduleDraw() {
     });
   }
 }
+
+// Initial draw and resize after layout is complete
+window.addEventListener("load", () => {
+  resizeCanvasToGraphArea();
+  updateAnchorElements();
+  draw();
+});
 
 // Handle resize
 window.addEventListener("resize", () => {
@@ -230,4 +238,3 @@ observer.observe(graphArea, { childList: true, subtree: true });
 // Initial draw and resize
 resizeCanvasToGraphArea();
 draw();
-
