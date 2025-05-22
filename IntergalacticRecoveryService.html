@@ -5,7 +5,40 @@
 <title>Mecha Andrew | Intergalactic Recovery Service</title>
 <link href="StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
+	<script>
+	function setupSidebar() {
+  var coll = document.getElementsByClassName("collapsible");
+  for (var i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+        this.innerHTML = this.innerHTML.replace("▼", "▶");
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        this.innerHTML = this.innerHTML.replace("▶", "▼");
+      }
+    });
+  }
+}
+
+// Fetch Sidebar and then setup event listeners
+fetch('SideBar.html')
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById('Sidebar').innerHTML = html;
+    setupSidebar(); // <-- Call this after sidebar is loaded
+  });
 	
+  fetch('TopBar.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('Topbar').innerHTML = html);
+  
+
+	setupSidebar();
+	
+</script>
 
 <body>
 		<div id="Sidebar"></div>

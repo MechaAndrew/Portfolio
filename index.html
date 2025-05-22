@@ -31,7 +31,7 @@ fetch('SideBar.html')
     setupSidebar(); // <-- Call this after sidebar is loaded
   });
 	
-  fetch('Topbar.html')
+  fetch('TopBar.html')
     .then(res => res.text())
     .then(html => document.getElementById('Topbar').innerHTML = html);
   
