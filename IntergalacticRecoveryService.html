@@ -23,19 +23,23 @@
   }
 }
 
-// Fetch Sidebar and then setup event listeners
-fetch('SideBar.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('Sidebar').innerHTML = html;
-    setupSidebar(); // <-- Call this after sidebar is loaded
-  });
-	
-fetch('TopBar.html')
+// Wait for DOM to be ready
+document.addEventListener("DOMContentLoaded", function() {
+  // Fetch Sidebar and then setup event listeners
+  fetch('SideBar.html')
     .then(res => res.text())
     .then(html => {
-	document.getElementById('Topbar').innerHTML = html;
-	});
+      document.getElementById('Sidebar').innerHTML = html;
+      setupSidebar();
+    });
+
+  // Fetch TopBar (use correct case!)
+  fetch('TopBar.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('Topbar').innerHTML = html;
+    });
+});
 	
 </script>
 
@@ -259,7 +263,7 @@ fetch('TopBar.html')
 </div>
 <!--End Content-->
 <script>
-	function setupSidebar() {
+function setupSidebar() {
   var coll = document.getElementsByClassName("collapsible");
   for (var i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
@@ -276,21 +280,23 @@ fetch('TopBar.html')
   }
 }
 
-// Fetch Sidebar and then setup event listeners
-fetch('SideBar.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('Sidebar').innerHTML = html;
-    setupSidebar(); // <-- Call this after sidebar is loaded
-  });
-	
-  fetch('Topbar.html')
+// Wait for DOM to be ready
+document.addEventListener("DOMContentLoaded", function() {
+  // Fetch Sidebar and then setup event listeners
+  fetch('SideBar.html')
     .then(res => res.text())
-    .then(html => document.getElementById('Topbar').innerHTML = html);
-  
+    .then(html => {
+      document.getElementById('Sidebar').innerHTML = html;
+      setupSidebar();
+    });
 
-	setupSidebar();
-	
+  // Fetch TopBar (use correct case!)
+  fetch('TopBar.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('Topbar').innerHTML = html;
+    });
+});
 </script>
 	
 </body>
