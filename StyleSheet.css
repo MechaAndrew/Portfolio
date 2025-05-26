@@ -400,7 +400,7 @@ body {
   flex-direction: row;
   align-items: center;  /*Center Everything*/ 
   justify-content: center;  /*or space-between, as needed*/ 
-  gap: 30%;
+  gap: 10%;
   flex-wrap: wrap;
 }
 .node-group.node-comment {
