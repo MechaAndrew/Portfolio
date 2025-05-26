@@ -26,11 +26,13 @@ document.querySelectorAll('a[href^="#recent_work"], a[href^="#work_detail"]').fo
     const target = document.getElementById(targetId);
     const container = document.querySelector('.graph-area');
 
-    if (target && container) {
-      container.scrollTo({
-        top: target.offsetTop - container.offsetTop,
-        behavior: 'smooth'
-      });
+    if (target && graphArea) {
+      e.preventDefault();
+      // Calculate offset relative to .graph-area
+      const areaRect = graphArea.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const scrollTop = graphArea.scrollTop + (targetRect.top - areaRect.top);
+      container.scrollTo({ top: scrollTop, behavior: 'smooth' });
     }
   });
 });

@@ -138,7 +138,7 @@ body {
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: 0;
+	z-index: 2;
 	pointer-events: none;
     }
 .graph-area {
@@ -174,7 +174,7 @@ body {
 	height: auto;
     box-shadow: 0 0 5px #000;
     overflow: hidden;
-    margin: 20px;
+/*    margin: 20px;*/
     flex-shrink: 0;
 	display: flex;
 	flex-direction: column;
@@ -222,19 +222,39 @@ body {
 }
 
 .video-container {
+/*
   position: relative;
   display: inline-block;
   overflow: hidden;
   border: 2px solid #ccc;
   border-radius: 5%;
+*/
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  border-radius: 10%;
 }
 
 .node-video {
+/*
 	object-fit: contain;
   display: block;
   width: 130%;
   height: auto;
   margin-left: -50px;
+*/
+  flex: 1 1 0;
+  max-width: 100%;
+  width: 50%;
+  height: auto;
+  object-fit: contain;
+  margin: 0;
+  display: block;
 }
 
 .play-overlay {
@@ -267,10 +287,9 @@ body {
 
 .play-wrapper{
   position: absolute;
-  top: 50%;
-  left: 44%;
+/*  top: 50%;*/
+/*  left: 50%;*/
   background: #5C5C5C;
-  /*border: 2px solid #ccdfff; /* Border around the play button */
   border-radius: 10%;
   width: 56px;
   height: 50px;
@@ -281,6 +300,7 @@ body {
   opacity: 80%;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  transform: translate(0%, 0%);
 }
 
 .video-container:hover .play-wrapper,
@@ -378,8 +398,59 @@ body {
 .node-group {
   display: flex;
   flex-direction: row;
-  align-items: center; /* This is key! */
-  justify-content: center; /* or space-between, as needed */
-  gap: 10%;
+  align-items: center;  /*Center Everything*/ 
+  justify-content: center;  /*or space-between, as needed*/ 
+  gap: 30%;
   flex-wrap: wrap;
+}
+.node-group.node-comment {
+  padding-bottom: 50px;
+  margin-bottom: 0;
+  height: auto;
+  min-height: 0px;
+  background: linear-gradient(
+    to bottom,
+    rgba(135,135,135,0.31) 0%,
+    rgba(55,55,55,0.80) 100%
+  );
+  border: 2px solid rgba(40, 40, 40, 1);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+  flex-direction: column; /* Stack title and body vertically */
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.node-group.node-comment .node {
+    margin-top: 20px;
+/*    margin-bottom: 8px;*/
+}
+.node-group.node-comment .node:last-child {
+  margin-bottom: 0px;
+}
+
+
+.node-comment-title {
+  /* Remove position: absolute, top, left, right */
+  position: static;
+  width: 100%;
+  padding: 20px;
+  background: rgba(40, 40, 40, 1);
+  font-weight: bold;
+  font-size: 1.8em;
+  color: #fff;
+  letter-spacing: 0.5px;
+  z-index: 3;
+}
+
+.node-comment-body {
+  display: flex;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(3, 1fr); /* Always 3 columns by default */
+  gap: inherit; /* Use your preferred percentage gap */
+  width: 100%;
+  align-items: flex-start;
+	justify-content: center;
 }
