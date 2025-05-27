@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Mecha Andrew | Games</title>
 
-<link href="StyleSheet.css" rel="stylesheet" type="text/css">
+<link href="../StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
 	<script>
 	function setupSidebar() {
@@ -25,14 +25,14 @@
 }
 
 // Fetch Sidebar and then setup event listeners
-fetch('SideBar.html')
+fetch('../sidebar/index.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('Sidebar').innerHTML = html;
     setupSidebar(); // <-- Call this after sidebar is loaded
   });
 	
-fetch('TopBar.html')
+fetch('../topbar/index.html')
     .then(res => res.text())
     .then(html => {
 	document.getElementById('Topbar').innerHTML = html;
@@ -62,5 +62,5 @@ fetch('TopBar.html')
 
 </body>
 </html>
-	<script type="text/javascript" src="Script.js"></script>
+	<script type="text/javascript" src="../Script.js"></script>
 

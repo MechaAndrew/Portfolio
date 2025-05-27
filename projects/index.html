@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Mecha Andrew | Games</title>
 
-<link href="StyleSheet.css" rel="stylesheet" type="text/css">
+<link href="../StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
 	<script>
 	function setupSidebar() {
@@ -15,24 +15,24 @@
       var content = this.nextElementSibling;
       if (content.style.maxHeight){
         content.style.maxHeight = null;
-        this.innerHTML = this.innerHTML.replace("▼", "▶");
+        this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
       } else {
         content.style.maxHeight = content.scrollHeight + "px";
-        this.innerHTML = this.innerHTML.replace("▶", "▼");
+        this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
       }
     });
   }
 }
 
 // Fetch Sidebar and then setup event listeners
-fetch('SideBar.html')
+fetch('../sidebar/index.html')
   .then(res => res.text())
   .then(html => {
     document.getElementById('Sidebar').innerHTML = html;
     setupSidebar(); // <-- Call this after sidebar is loaded
   });
 	
-fetch('TopBar.html')
+fetch('../topbar/index.html')
     .then(res => res.text())
     .then(html => {
 	document.getElementById('Topbar').innerHTML = html;
@@ -76,7 +76,7 @@ fetch('TopBar.html')
 			  <br>
 				<!--End Node Info-->
 		  </div>
-          <a href="#recent_work" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore ▶</span><br>
+          <a href="#recent_work" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore &#11208;</span><br>
           </a>
 	    </div>
       </div> <!--End Node-->
@@ -102,8 +102,8 @@ fetch('TopBar.html')
           <p>Intergalactic Recovery Service</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">▶</span> </a> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor5">▶</span> </a>
-          <div class="node-contents"> <a href="IntergalacticRecoveryService.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">&#11208;</span> </a> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor5">&#11208;</span> </a>
+          <div class="node-contents"> <a href="/intergalacticrecoveryservice/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/IRSPortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -148,8 +148,8 @@ fetch('TopBar.html')
           <p>ShipIt</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">▶</span> </a> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">▶</span> </a>
-          <div class="node-contents"> <a href="ShipIt.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">&#11208;</span> </a> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">&#11208;</span> </a>
+          <div class="node-contents"> <a href="/shipit/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/ShipItPortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -190,11 +190,11 @@ fetch('TopBar.html')
 	  <!--Start Node-->
       <div class="node" id="recent_work4" style=" background-color: #35C9FF">
         <div class="node-header">
-          <p>Persistance</p>
+          <p>Persistence</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor8">▶</span> </a> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor9">▶</span> </a>
-          <div class="node-contents"> <a href="Persistance.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor8">&#11208;</span> </a> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor9">&#11208;</span> </a>
+          <div class="node-contents"> <a href="/persistence/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/PersistancePortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -256,5 +256,5 @@ fetch('TopBar.html')
 
 </body>
 </html>
-	<script type="text/javascript" src="Script.js"></script>
+	<script type="text/javascript" src="../Script.js"></script>
 

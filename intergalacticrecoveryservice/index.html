@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Mecha Andrew | Intergalactic Recovery Service</title>
-<link href="StyleSheet.css" rel="stylesheet" type="text/css">
+<link href="/StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
 	<script>
 	function setupSidebar() {
@@ -14,10 +14,10 @@
       var content = this.nextElementSibling;
       if (content.style.maxHeight){
         content.style.maxHeight = null;
-        this.innerHTML = this.innerHTML.replace("▼", "▶");
+        this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
       } else {
         content.style.maxHeight = content.scrollHeight + "px";
-        this.innerHTML = this.innerHTML.replace("▶", "▼");
+        this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
       }
     });
   }
@@ -26,7 +26,7 @@
 // Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch Sidebar and then setup event listeners
-  fetch('SideBar.html')
+  fetch('/sidebar/index.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('Sidebar').innerHTML = html;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
   // Fetch TopBar (use correct case!)
-  fetch('TopBar.html')
+  fetch('/topbar/index.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('Topbar').innerHTML = html;
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 	
 </script>
+	
 
 <body>
 		<div id="Sidebar"></div>
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
         <div class="node-body">
           <div class="node-contents" href="#">
-			  <iframe width="75%" height="300" src="https://www.youtube.com/embed/yR0qLZJoP-s"> </iframe>
+			  <iframe width="75%" height="300" src="https://www.youtube.com/embed/yR0qLZJoP-s" allow="fullscreen"> </iframe>
 			  			  <!--Start Node Info-->
             <div class="node-info">
               <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
@@ -92,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <!--End Node Info--> 
             
           </div>
-          <a href="#work_detail1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore ▶</span><br>
+          <a href="#work_detail1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore &#11208;</span><br>
           </a> </div>
       </div>
       <!--End Node--> 
@@ -117,10 +118,10 @@ document.addEventListener("DOMContentLoaded", function() {
           <p>Context</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">▶</span> </a> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor5">▶</span> </a>
+        <div class="node-body"> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">&#11208;</span> </a> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor5">&#11208;</span> </a>
           <div class="node-contents"> 
             <div class="video-container" style="width: 80%; height: auto;">
-			<img class="node-video" src="img/IRSImg2.png" alt=""/>
+			<img class="node-video" src="../img/IRSImg2.png" alt=""/>
             </div>
             <!--Start Node Info-->
             <div class="node-info">
@@ -149,10 +150,10 @@ document.addEventListener("DOMContentLoaded", function() {
           <p>Work and Experience</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">▶</span> </a> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">▶</span> </a>
+        <div class="node-body"> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">&#11208;</span> </a> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">&#11208;</span> </a>
           <div class="node-contents" style="width: 30%; height: auto;"> 
             <div class="video-container" style="width: 100%; height: auto;">
-			<img class="node-video" src="img/IRSGif1.gif" alt=""/>
+			<img class="node-video" src="../img/IRSGif1.gif" alt=""/>
             </div>
 			  
 		    <!--Start Node Info-->
@@ -193,13 +194,13 @@ document.addEventListener("DOMContentLoaded", function() {
           <p>Contributions | UI</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor10">▶</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor11">▶</span> </a>
+        <div class="node-body"> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor10">&#11208;</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor11">&#11208;</span> </a>
           <div class="node-contents"> 
             <div class="video-container" >
-			<img class="node-video" src="img/IRSImg4.png" alt=""/>
+			<img class="node-video" src="../img/IRSImg4.png" alt=""/>
             </div>
 			<div class="video-container" >
-			<img class="node-video" src="img/IRSImg6.png" alt=""/>
+			<img class="node-video" src="../img/IRSImg6.png" alt=""/>
             </div>
 			  
 		    <!--Start Node Info-->
@@ -231,11 +232,11 @@ document.addEventListener("DOMContentLoaded", function() {
           <p>Contributions | 3D modeling</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#work_detail5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor12">▶</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor13">▶</span> </a>
+        <div class="node-body"> <a href="#work_detail5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor12">&#11208;</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor13">&#11208;</span> </a>
           <div class="node-contents"> 
             <div class="video-container">
-			<img class="node-video"  src="img/IRSImg3.png" alt=""/>
-			<img class="node-video"  src="img/IRSImg5.png" alt=""/>
+			<img class="node-video"  src="../img/IRSImg3.png" alt=""/>
+			<img class="node-video"  src="../img/IRSImg5.png" alt=""/>
             </div>
 			  
 		    <!--Start Node Info-->
@@ -273,4 +274,4 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 </body>
 </html>
-<script type="text/javascript" src="Script.js"></script>
+<script type="text/javascript" src="/Script.js"></script>

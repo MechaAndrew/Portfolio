@@ -14,28 +14,32 @@
       var content = this.nextElementSibling;
       if (content.style.maxHeight){
         content.style.maxHeight = null;
-        this.innerHTML = this.innerHTML.replace("▼", "▶");
+        this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
       } else {
         content.style.maxHeight = content.scrollHeight + "px";
-        this.innerHTML = this.innerHTML.replace("▶", "▼");
+        this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
       }
     });
   }
 }
 
-// Fetch Sidebar and then setup event listeners
-fetch('SideBar.html')
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById('Sidebar').innerHTML = html;
-    setupSidebar(); // <-- Call this after sidebar is loaded
-  });
-	
-fetch('TopBar.html')
+// Wait for DOM to be ready
+document.addEventListener("DOMContentLoaded", function() {
+  // Fetch Sidebar and then setup event listeners
+  fetch('sidebar/index.html')
     .then(res => res.text())
     .then(html => {
-	document.getElementById('Topbar').innerHTML = html;
-	});
+      document.getElementById('Sidebar').innerHTML = html;
+      setupSidebar();
+    });
+
+  // Fetch TopBar (use correct case!)
+  fetch('topbar/index.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('Topbar').innerHTML = html;
+    });
+});
 	
 </script>
 
@@ -77,13 +81,13 @@ fetch('TopBar.html')
 			  <!--Start Node Info-->
             <div class="node-info">
               <div class="node-info-section" style="border: 3px solid #11B141"></div>
-              <p style=" width: 60%;">Click the "▶" to jump to next nodes </p>
+              <p style=" width: 60%;">Click the "&#11208;" to jump to next nodes </p>
             </div>
             <br>
             <!--End Node Info--> 
 			  
           </div>
-          <a href="#recent_work" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore ▶</span><br>
+          <a href="#recent_work" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore &#11208;</span><br>
           </a> </div>
       </div>
       <!--End Node--> 
@@ -99,7 +103,7 @@ fetch('TopBar.html')
         <div class="node-header">
           <p>Navigation</p>
         </div>
-        <div class="node-body"> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">◀</span> </a> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor3">◀</span> </a>
+        <div class="node-body"> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">&#11207;</span> </a> <a href="#recent_work1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor3">&#11207;</span> </a>
           <div class="node-contents"> 
             <!--Start Node Info-->
             <div class="node-info">
@@ -135,8 +139,8 @@ fetch('TopBar.html')
           <p>Intergalactic Recovery Service</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">▶</span> </a> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">▶</span> </a>
-          <div class="node-contents"> <a href="IntergalacticRecoveryService.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">&#11208;</span> </a> <a href="#recent_work3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">&#11208;</span> </a>
+          <div class="node-contents"> <a href="intergalacticrecoveryservice/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/IRSPortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -181,8 +185,8 @@ fetch('TopBar.html')
           <p>ShipIt</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor8">▶</span> </a> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor9">▶</span> </a>
-          <div class="node-contents"> <a href="ShipIt.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor8">&#11208;</span> </a> <a href="#recent_work4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor9">&#11208;</span> </a>
+          <div class="node-contents"> <a href="shipit/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/ShipItPortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -223,11 +227,11 @@ fetch('TopBar.html')
 	  <!--Start Node-->
       <div class="node" id="recent_work4" style=" background-color: #35C9FF">
         <div class="node-header">
-          <p>Persistance</p>
+          <p>Persistence</p>
           <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
         </div>
-        <div class="node-body"> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor10">▶</span> </a> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor11">▶</span> </a>
-          <div class="node-contents"> <a href="Persistance.html" style=" text-decoration: none; display: block;">
+        <div class="node-body"> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor10">&#11208;</span> </a> <a href="#recent_work5" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor11">&#11208;</span> </a>
+          <div class="node-contents"> <a href="persistence/index.html" style=" text-decoration: none; display: block;">
             <div class="video-container">
               <video class="node-video" muted loop playsinline src="img/PersistancePortfolioClip.mp4"></video>
               <div class="play-wrapper">
@@ -240,22 +244,23 @@ fetch('TopBar.html')
             <!--Start Node Info-->
             <div class="node-info">
               <div class="node-info-section" style="border: 3px solid #B111A6"></div>
-              <p>3D co-op Action Aventure Platformer.</p>
+              <p>Horror Aventure</p>
             </div>
             <br>
             <!--End Node Info--> 
             <!--Start Node Info-->
             <div class="node-info">
               <div class="node-info-section" style="border: 3px solid #11B150"></div>
-              <p>2 Players will take the roles of the IRS Astronauts to retrieve the stolen packages from the "Malians" using their unique tools and teamwork.&nbsp;</p>
+              <p>Trapped in an infinite hallway, you must seek pieces of an ouroboros to try and escape. However with each piece obtained, the rooms become more and more distorted into something else...</p>
             </div>
 			  <br>
             <!--End Node Info-->
             <!--Start Node Info-->
             <div class="node-info">
               <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
-              <p>I worked as a 3D Modeler, animator, level designer, and UI designer for a student project</p>
+              <p>I worked as a 3D Modeler for this student project&nbsp;</p>
             </div>
+			  <br>
             <!--End Node Info--> 
           </div>
         </div>

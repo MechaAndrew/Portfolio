@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mecha Andrew | Ship It</title>
+<link href="/StyleSheet.css" rel="stylesheet" type="text/css">
+</head>
+	<script>
+	function setupSidebar() {
+  var coll = document.getElementsByClassName("collapsible");
+  for (var i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+        this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
+      }
+    });
+  }
+}
+
+// Wait for DOM to be ready
+document.addEventListener("DOMContentLoaded", function() {
+  // Fetch Sidebar and then setup event listeners
+  fetch('/sidebar/index.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('Sidebar').innerHTML = html;
+      setupSidebar();
+    });
+
+  // Fetch TopBar (use correct case!)
+  fetch('/topbar/index.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('Topbar').innerHTML = html;
+    });
+});
+	
+</script>
+	
+
+<body>
+		<div id="Sidebar"></div>
+	<div class="content">
+		<div id="Topbar"></div>
+		
+  <!-- Move canvas inside graph-area and remove the old canvas above -->
+  <div class="graph-area" style="position: relative;">
+    <canvas id="canvas" ></canvas>
+    <div class="node-group" style="gap:80%"> 
+      
+      <!--Start Node-->
+      <div class="node" style=" width: 750px; background-color: #FF3535">
+        <div class="node-header">
+          <p>ShipIt</p>
+          <div class="node-output-detail" style="border: 3px solid #B00F0F"></div>
+        </div>
+        <div class="node-body">
+          <div class="node-contents" href="#">
+			  <iframe width="75%" height="300" src="https://www.youtube.com/embed/CuxA3yGMU7o"> </iframe>
+			  			  <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1" allow="fullscreen"></div>
+              <p><a href="https://kuromey.itch.io/ship-it" target="_blank" style=" text-decoration: underline; color: white;"><b>Experience on itch.io ➤</b></a></p>
+            </div>
+			  <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p>2.5D Horror Dating Simulator</p>
+            </div>
+            <br>
+			<!--End Node Info--> 
+			<!--Start Node Info-->
+			  <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>Aboard a cruise ship, you romanticise the passengers through dialogue and minigames. However, as you try to swoon over the other cruise guests, they mysteriously start to be killed off...&nbsp;</p>
+            </div>
+			  <br>
+			  <!--End Node Info--> 
+			  <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
+              <p>I worked as a 3D Modeler, texturer, and sprite animator for this student project.&nbsp;</p>
+            </div>
+			  <br>
+            <!--End Node Info--> 
+            
+          </div>
+          <a href="#work_detail1" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor1">Explore &#11208;</span><br>
+          </a> </div>
+      </div>
+      <!--End Node--> 
+    </div>
+    <!--End Node Group--> 
+    <br>
+	  
+	      <!--Anchor Dot Points-->
+    <div class="node-group" style="gap: 70%">
+      <p class="node-lineAnchor" id="anchor3">&xcirc;</p>
+      <p class="node-lineAnchor" id="anchor2">&xcirc;</p>
+    </div>
+    <!--Anchor Dot Points-->
+    
+    <!--Start Node Group-->
+    <!-- Nodes with dynamic positions-->
+    <div class="node-group" style="padding-top: 200px;"> 
+      <!--Start Node-->
+      
+      <div class="node" id="work_detail1" style="width: 40pc; background-color: #35C9FF">
+        <div class="node-header">
+          <p>Context</p>
+          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+        </div>
+        <div class="node-body"> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor4">&#11208;</span> </a> <a href="#work_detail2" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor5">&#11208;</span> </a>
+          <div class="node-contents"> 
+            <div class="video-container" style="width: 80%; height: auto;">
+			<img class="node-video" src="../img/ShipItImg1.png" alt=""/>
+            </div>
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>This was my send to final project at UC Santa Cruz where I would work with a team of 10 to create a "game slice" using Unreal Engine 5.</p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>Over a 3 month span, this experience would prove to be a big learning experience not just with 3D modeling and texturing, but with proper team coordination.</p>
+            </div>
+			  <br>
+            <!--End Node Info-->
+          </div>
+        </div>
+        <!--End Node Body--> 
+        
+      </div>
+      <!--End Node--> 
+		
+		<!--Start Node-->
+      <div class="node" id="work_detail2" style="width: 40pc; background-color: #35C9FF">
+        <div class="node-header">
+          <p>Work and Experience</p>
+          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+        </div>
+        <div class="node-body"> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor6">&#11208;</span> </a> <a href="#work_detail3" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor7">&#11208;</span> </a>
+          <div class="node-contents" style="width: 30%; height: auto;"> 
+            <div class="video-container" style="width: 100%; height: auto;">
+			<img class="node-video" src="../img/ShipItImg2.png" alt=""/>
+            </div>
+			  
+		    <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
+              <p>I worked as a 3D Modeler, texturer, and sprite animator</p>
+            </div>
+			  <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>We set a large goal for ourselves with this "game slice" as we devised to make a dating simulator with a horror twist. However, with poor communication, we were unable to achieve a demonstrable amount of the horror we envisioned.&nbsp;</p>
+            </div>
+			  <br>
+            <!--End Node Info-->
+			 <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>I take this as a great learning experience, as projects going forward, I emphasize communication and consistent meetings..&nbsp;</p>
+            </div>
+			  <br>
+            <!--End Node Info-->
+			  
+          </div>
+        </div>
+        <!--End Node Body--> 
+        
+      </div>
+      <!--End Node--> 
+	
+    </div>
+    
+    <!--Anchor Dot Points-->
+    <div class="node-group" style="gap: 80%">
+      <p class="node-lineAnchor" id="anchor9">&xcirc;</p>
+      <p class="node-lineAnchor" id="anchor8">&xcirc;</p>
+    </div>
+    <!--Anchor Dot Points-->
+    
+    <div class="node-group" style="padding-top: 200px;"> 
+		
+	<!--Start Node-->
+      <div class="node" id="work_detail3" style="width: 40pc; background-color: #35C9FF">
+        <div class="node-header">
+          <p>Contributions | Modeling + Texture</p>
+          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+        </div>
+        <div class="node-body"> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor10">&#11208;</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor11">&#11208;</span> </a>
+          <div class="node-contents"> 
+            <div class="video-container" >
+			<img class="node-video" src="../img/ShipItImg3.png" alt=""/>
+            </div>
+		    <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
+              <p>I helped create 3D assets and 2D pixel textures to decorate the cruise</p>
+            </div>
+			  <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>Using Blender I was able to 3D model assets and using Photoshop I was able to pixel texture the UVs</p>
+            </div>
+			  <br>
+            <!--End Node Info-->
+          </div>
+        </div>
+        <!--End Node Body--> 
+        
+      </div>
+      <!--End Node--> 	
+		
+		
+		
+	<!--Start Node-->
+      <div class="node" id="work_detail4" style="width: 40pc; background-color: #35C9FF">
+        <div class="node-header">
+          <p>Contributions | Pixel Art</p>
+          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+        </div>
+        <div class="node-body"> <a href="#work_detail5" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor12">&#11208;</span> </a> <a href="#work_detail4" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor13">&#11208;</span> </a>
+          <div class="node-contents"> 
+            <div class="video-container">
+			<img class="node-video"  src="../img/ShipItGif1.gif" alt=""/>
+            </div>
+			  
+		    <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #44C6E1"></div>
+              <p>I contributed with pixel art + animations.&nbsp;</p>
+            </div>
+			  <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B150"></div>
+              <p>I made the bar bell animation + its UI assets for the gym minigame.</p>
+            </div>
+			  <br>
+            <!--End Node Info-->
+          </div>
+        </div>
+        <!--End Node Body--> 
+        
+      </div>
+      <!--End Node--> 
+      
+      
+       
+      
+      
+	  </div>
+    <!--End Node Group--> 
+    
+  </div>
+  <!--End Graph--> 
+</div>
+<!--End Content-->
+
+	
+</body>
+</html>
+<script type="text/javascript" src="/Script.js"></script>
