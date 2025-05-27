@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Mecha Andrew | Ship It</title>
-<link href="/StyleSheet.css" rel="stylesheet" type="text/css">
+<link href="../StyleSheet.css" rel="stylesheet" type="text/css">
 </head>
 	<script>
 	function setupSidebar() {
@@ -26,7 +26,7 @@
 // Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch Sidebar and then setup event listeners
-  fetch('/sidebar/index.html')
+  fetch('../sidebar/index.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('Sidebar').innerHTML = html;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
   // Fetch TopBar (use correct case!)
-  fetch('/topbar/index.html')
+  fetch('../topbar/index.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('Topbar').innerHTML = html;
@@ -278,4 +278,4 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 </body>
 </html>
-<script type="text/javascript" src="/Script.js"></script>
+<script type="text/javascript" src="../Script.js"></script>
