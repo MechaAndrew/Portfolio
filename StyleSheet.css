@@ -123,16 +123,20 @@ body {
 	font-size: 50px;
     padding-top: 30px;
     padding-bottom: 40px;
-    background-color: #1A1A1A;
     color: #fff;
     height: 32px;
     flex-direction: row;
     align-items: left;
 /*	overflow: auto;*/
     align-items: center;
-	background: repeating-linear-gradient( 45deg, #C9B64E, #45461E 20px, #1a1a1a 20px, #1a1a1a 40px );
+	
 	text-shadow: 2px 2px #000000;
 	}
+.construction-bg
+{
+	background: repeating-linear-gradient( 45deg, #C9B64E, #45461E 15px, #1a1a1a 20px, #1a1a1a 40px );
+	background-color: transparent;
+}
 
 	canvas {
 	position: absolute;
@@ -174,13 +178,14 @@ body {
 	height: auto;
     box-shadow: 0 0 5px #000;
     overflow: hidden;
+	overflow-x: hidden;
 /*    margin: 20px;*/
     flex-shrink: 0;
 	display: flex;
 	flex-direction: column;
 	transition: height 0.4s ease, transform 0.4s ease;
 	z-index: 2;
-	will-change: transform;
+/*	will-change: transform;*/
 }
 .node-header {
     color: white;
@@ -218,7 +223,7 @@ body {
     display: flex;
     align-items: center;
 	flex: 1;
-	overflow: auto;  /*optional: adds scrolling if content overflows */
+	overflow: inherit;  /*optional: adds scrolling if content overflows */
 }
 
 .video-container {
@@ -238,6 +243,7 @@ body {
   overflow: hidden;
   border: 2px solid #ccc;
   border-radius: 10%;
+
 }
 
 .node-video {
