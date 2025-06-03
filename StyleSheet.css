@@ -107,7 +107,18 @@ body {
     font-weight: bold;
 /*    font-size: 1.1em;*/
     font-size: 35px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Prevent text from wrapping under the icon */
+    gap: 8px;            /* Space between icon and text */
+    /* font-size: 22px;     Reduce font size for mobile */
+    padding: 0 8px;
 }
+
+.tab p {
+
+}
+
 .tab:not(.tab_divider):hover {
     background-color: #3a3a3a;
     text-decoration: underline;
