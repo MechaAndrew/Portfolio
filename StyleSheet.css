@@ -99,27 +99,15 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     border-bottom: 2px solid #111;
-    z-index: 2;
+	z-index: 2;
 }
 .tab {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1em;
-    /* font-size: 35px; */
-    display: flex;
-    align-items: center;
-    white-space: nowrap; /* Prevent text from wrapping under the icon */
-    gap: 8px;            /* Space between icon and text */
-    padding: 0 8px;
+/*    font-size: 1.1em;*/
+    font-size: 35px;
 }
-
-.tab img {
-  width: 20%;   /* Smaller icon for mobile */
-  height: auto;
-  margin-right: 4px;
-}
-
 .tab:not(.tab_divider):hover {
     background-color: #3a3a3a;
     text-decoration: underline;
