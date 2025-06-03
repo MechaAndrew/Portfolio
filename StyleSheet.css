@@ -496,3 +496,8 @@ body {
   align-items: flex-start;
 	justify-content: center;
 }
+
+.tab a, .tab a:visited, .tab a:active, .tab a:focus {
+  color: white !important;
+  text-decoration: none !important;
+}
