@@ -115,7 +115,7 @@ body {
 }
 
 .tab img {
-  width: 10%;   /* Smaller icon for mobile */
+  width: 20%;   /* Smaller icon for mobile */
   height: auto;
   margin-right: 4px;
 }
