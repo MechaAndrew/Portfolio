@@ -87,6 +87,7 @@ body {
 }
 .topbar {
     display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: left;
     gap: 3%;
     padding-top: 30px;
@@ -106,7 +107,19 @@ body {
     font-weight: bold;
 /*    font-size: 1.1em;*/
     font-size: 35px;
+    display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevent text from wrapping under the icon */
+  gap: 8px;            /* Space between icon and text */
+  padding: 0 8px;
 }
+
+.tab img {
+  width: 28px;   /* Smaller icon for mobile */
+  height: auto;
+  margin-right: 4px;
+}
+
 .tab:not(.tab_divider):hover {
     background-color: #3a3a3a;
     text-decoration: underline;
