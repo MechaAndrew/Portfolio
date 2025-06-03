@@ -86,33 +86,26 @@ body {
     cursor: pointer;
 }
 .topbar {
-  display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping */
-  overflow-x: auto;  /* Allow horizontal scroll if needed */
-  gap: 3%;
-  padding-top: 30px;
-  padding-bottom: 40px;
-  background-color: #1A1A1A;
-  color: #fff;
-  height: 32px;
-  align-items: center;
-  padding-left: 10%;
-  padding-right: 10%;
-  border-bottom: 2px solid #111;
+    display: flex;
+    justify-content: left;
+    gap: 3%;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    background-color: #1A1A1A;
+    color: #fff;
+    height: 32px;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-bottom: 2px solid #111;
 	z-index: 2;
 }
 .tab {
-  display: flex;
-  align-items: center;
-  white-space: nowrap; /* Prevent text from wrapping under the icon */
-  gap: 8px;            /* Space between icon and text */
-  font-size: 22px;     /* Reduce font size for mobile */
-  padding: 0 8px;
-}
-.tab img {
-  width: 28px;   /* Smaller icon for mobile */
-  height: auto;
-  margin-right: 4px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+/*    font-size: 1.1em;*/
+    font-size: 35px;
 }
 .tab:not(.tab_divider):hover {
     background-color: #3a3a3a;
@@ -489,23 +482,4 @@ body {
   width: 100%;
   align-items: flex-start;
 	justify-content: center;
-}
-
-@media (max-width: 600px) {
-  .topbar {
-    padding-left: 2%;
-    padding-right: 2%;
-    gap: 1%;
-  }
-  .tab {
-    font-size: 16px;
-    padding: 0 4px;
-  }
-  .tab img {
-    width: 20px;
-  }
-}
-.tab, .tab:visited, .tab:active, .tab:focus {
-  color: white;
-  text-decoration: none;
 }
