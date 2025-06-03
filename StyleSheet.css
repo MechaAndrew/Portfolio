@@ -116,7 +116,8 @@ body {
 }
 
 .tab p {
-
+	color: white;
+    text-decoration: none;
 }
 
 .tab:not(.tab_divider):hover {
