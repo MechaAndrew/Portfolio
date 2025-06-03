@@ -173,7 +173,10 @@ body {
     background: #1e1e1e;
     border: 2px solid black;
     border-radius: 10px;
-    width: 25pc;
+  	width: auto;           /* Allow node to grow with content */
+ 	min-width: 250px;      /* Optional: set a minimum width */
+  	max-width: 100%;       /* Prevent overflow beyond parent */
+  	word-break: break-word;/* Break long words/URLs */
  	min-height: 300px;
 	height: auto;
     box-shadow: 0 0 5px #000;
@@ -339,9 +342,17 @@ body {
 .node-contents {
     flex: 1;
     text-align: left;
+	align-items: center;
 	padding-left: 5%;
 	padding-right: 5%;
+	width: 100%;
+	 
 }
+
+.node-contents a{
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
 	.node-info {
     display: flex;
     flex-direction: row;
@@ -362,7 +373,18 @@ body {
 	background-color: rgba(33,33,33,1.00);
 	padding-left: 5px;
 	padding-right: 5px;
+	word-break: break-word;   /* Break long words/URLs */
+  	white-space: normal;      /* Allow wrapping */
+/*  	max-width: 100%;           Prevent overflow */
+  	box-sizing: border-box;   /* Include padding in width */
+
 }
+.node-info a {
+  display: block;
+  width: auto;
+  overflow-wrap: anywhere;  /* Break anywhere if needed */
+}
+
 
 /* Node Info */
 .node-info .node-info-section {
