@@ -105,8 +105,8 @@ body {
     color: white;
     text-decoration: none;
     font-weight: bold;
-/*    font-size: 1.1em;*/
-    font-size: 35px;
+   font-size: 1.1em;
+    /* font-size: 35px; */
     display: flex;
   align-items: center;
   white-space: nowrap; /* Prevent text from wrapping under the icon */
@@ -115,7 +115,7 @@ body {
 }
 
 .tab img {
-  width: 25%;   /* Smaller icon for mobile */
+  width: 10%;   /* Smaller icon for mobile */
   height: auto;
   margin-right: 4px;
 }
