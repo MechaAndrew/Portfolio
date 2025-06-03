@@ -505,3 +505,7 @@ body {
     width: 20px;
   }
 }
+.tab, .tab:visited, .tab:active, .tab:focus {
+  color: white;
+  text-decoration: none;
+}
