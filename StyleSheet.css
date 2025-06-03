@@ -99,19 +99,19 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     border-bottom: 2px solid #111;
-	z-index: 2;
+    z-index: 2;
 }
 .tab {
     color: white;
     text-decoration: none;
     font-weight: bold;
-   font-size: 1.1em;
+    font-size: 1.1em;
     /* font-size: 35px; */
     display: flex;
-  align-items: center;
-  white-space: nowrap; /* Prevent text from wrapping under the icon */
-  gap: 8px;            /* Space between icon and text */
-  padding: 0 8px;
+    align-items: center;
+    white-space: nowrap; /* Prevent text from wrapping under the icon */
+    gap: 8px;            /* Space between icon and text */
+    padding: 0 8px;
 }
 
 .tab img {
