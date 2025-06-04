@@ -87,7 +87,7 @@ body {
 }
 .topbar {
     display: flex;
-    flex-wrap: wrap; /* Prevent wrapping */
+    flex-wrap: wra; /* Prevent wrapping */
     justify-content: left;
     gap: 3%;
     padding-top: 30px;
@@ -99,9 +99,7 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     border-bottom: 2px solid #111;
-    z-index: 2;
-      flex-shrink: 0;
-    flex-direction: row;
+	z-index: 2;
 }
 .tab {
     color: white;
@@ -115,8 +113,6 @@ body {
     gap: 8px;            /* Space between icon and text */
     /* font-size: 22px;     Reduce font size for mobile */
     padding: 0 8px;
-    flex-shrink: 0;
-    flex-direction: row;
 }
 
 .tab p {
@@ -333,6 +329,9 @@ body {
 .node-video.playing + .play-wrapper {
   opacity: 0;
 }
+
+
+
 
 .node-left-icon, .node-right-icon {
     position: absolute;
