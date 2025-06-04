@@ -8,7 +8,7 @@ width: 10px;
 ::-webkit-scrollbar-track {
 background: rgba(26,26,26,1.00);
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
 background: rgba(87,87,87,1.00);
@@ -500,4 +500,56 @@ body {
 .tab a, .tab a:visited, .tab a:active, .tab a:focus {
   color: white !important;
   text-decoration: none !important;
+}
+@media (max-width: 800px) {
+  .topbar {
+    padding-left: 2%;
+    padding-right: 2%;
+    gap: 1%;
+    font-size: 14px;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .tab {
+    font-size: 16px;
+    padding: 0 4px;
+    gap: 4px;
+    min-width: 80px;
+    max-width: 100vw;
+    flex: 1 1 40%;
+    justify-content: center;
+  }
+  .tab img {
+    width: 22px;
+    height: auto;
+    margin-right: 2px;
+  }
+  .tab_divider {
+    font-size: 18px;
+    padding: 0 2px;
+  }
+}
+@media (max-width: 500px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .tab {
+    font-size: 14px;
+    padding: 4px 0;
+    min-width: 100px;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
+  .tab img {
+    width: 18px;
+  }
+  .tab_divider {
+    display: none;
+  }
 }
