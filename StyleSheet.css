@@ -257,6 +257,7 @@ body {
   border-radius: 5%;
 */
   display: flex;
+  margin: 0 auto;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -267,6 +268,19 @@ body {
   border-radius: 10%;
 
 }
+
+/* Center and size single images in video-container */
+/* .video-container > a > .node-video,
+.video-container > .node-video {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+} */
+
 
 .node-video {
 /*
