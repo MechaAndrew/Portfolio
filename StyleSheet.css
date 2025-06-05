@@ -86,12 +86,12 @@ body {
     cursor: pointer;
 }
 .topbar {
-    border: 10px solid black;
-  outline: #4CAF50 solid 10px;
+    /* border: 10px solid black; */
+  /* outline: #4CAF50 solid 10px; */
 
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content:space-between;
         flex-direction: row;
     gap: 2%;
     background-color: #1A1A1A;
@@ -99,6 +99,7 @@ body {
     color: #fff;
     box-sizing: border-box;
     height: 100px;
+    flex-shrink: 0;;
 
     /* padding-top: 30px; */
     /* padding-bottom: 40px; */
