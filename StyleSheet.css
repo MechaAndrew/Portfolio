@@ -88,16 +88,16 @@ body {
 .topbar {
     display: flex;
     flex-wrap: wrap; /* Allow tabs to wrap to new line if needed */
-    justify-content: left;
-    gap: 1.5%;
-    padding-top: 30px;
-    padding-bottom: 40px;
+    justify-content: center; /* Center tab items horizontally */
+    gap: 0%;
     background-color: #1A1A1A;
     color: #fff;
     height: 32px;
     align-items: center;
-    padding-left: 2vw;
-    padding-right: 2vw;
+        padding-top: 30px;
+    padding-bottom: 45px;
+    padding-left: 10vw;
+    padding-right: 10vw;
     border-bottom: 2px solid #111;
     z-index: 2;
     /* Remove width: 100% and overflow-x: hidden to prevent overflow */
@@ -114,8 +114,8 @@ body {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    gap: 8px;
-    padding: 0 8px;
+    gap: 0px;
+    /* padding: 0 8px; */
     flex: 1 1 0; /* Allow tabs to shrink/grow */
     min-width: 0; /* Allow shrinking to fit container */
     justify-content: center;
