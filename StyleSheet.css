@@ -87,7 +87,26 @@ body {
 }
 .topbar {
     display: flex;
-    flex-wrap: nowrap; /* Prevent wrapping */
+    flex-wrap: nowrap;
+    justify-content: left;
+    gap: 3%;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    background-color: #1A1A1A;
+    color: #fff;
+    height: 32px;
+    align-items: center;
+    padding-left: 2vw;   /* Use viewport units for smaller padding */
+    padding-right: 2vw;
+    border-bottom: 2px solid #111;
+    z-index: 2;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+
+/* 
+    display: flex;
+    flex-wrap: nowrap; Prevent wrapping
     justify-content: left;
     gap: 3%;
     padding-top: 30px;
@@ -100,7 +119,7 @@ body {
     padding-right: 10%;
     border-bottom: 2px solid #111;
     z-index: 2;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden; Prevent horizontal scroll */
 }
 .tab {
     color: white;
