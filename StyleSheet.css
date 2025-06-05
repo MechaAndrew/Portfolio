@@ -90,22 +90,22 @@ body {
     flex-wrap: nowrap;
     justify-content: left;
     gap: 3%;
-    padding-top: 30px;
-    padding-bottom: 40px;
     background-color: #1A1A1A;
+    border-bottom: 2px solid #111;
     color: #fff;
+    box-sizing: border-box;
     height: 32px;
     align-items: center;
+    padding-top: 30px;
+    padding-bottom: 40px;
     padding-left: 2vw;   /* Use viewport units for smaller padding */
     padding-right: 2vw;
-    border-bottom: 2px solid #111;
+
     z-index: 2;
-    overflow-x: hidden;
-    width: 100%;
-    box-sizing: border-box;
-	
- 	flex-direction: row;
-  	align-items: center;  /*Center Everything*/ 
+    /* overflow-x: hidden; */
+    /* width: 100%; */
+    flex-direction: row;
+    align-items: center;  /*Center Everything*/ 
 
 /* 
     display: flex;
@@ -136,6 +136,9 @@ body {
     gap: 8px;            /* Space between icon and text */
     /* font-size: 22px;     Reduce font size for mobile */
     padding: 0 8px;
+    flex: 1 1 0; /* Allow tabs to shrink/grow */
+    min-width: 0; /* Allow shrinking to fit container */
+    justify-content: center;
 }
 
 .tab p {
