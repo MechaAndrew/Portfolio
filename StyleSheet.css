@@ -86,25 +86,30 @@ body {
     cursor: pointer;
 }
 .topbar {
+    border: 10px solid black;
+  outline: #4CAF50 solid 10px;
+
     display: flex;
     flex-wrap: nowrap;
-    justify-content: left;
-    gap: 3%;
+    justify-content: center;
+        flex-direction: row;
+    gap: 2%;
     background-color: #1A1A1A;
     border-bottom: 2px solid #111;
     color: #fff;
     box-sizing: border-box;
-    height: 32px;
-    align-items: center;
-    padding-top: 30px;
-    padding-bottom: 40px;
-    padding-left: 2vw;   /* Use viewport units for smaller padding */
-    padding-right: 2vw;
+    height: 100px;
+
+    /* padding-top: 30px; */
+    /* padding-bottom: 40px; */
+    padding-left: 10vw;
+       /* Use viewport units for smaller padding */
+    padding-right: 10vw;
 
     z-index: 2;
     /* overflow-x: hidden; */
     /* width: 100%; */
-    flex-direction: row;
+
     align-items: center;  /*Center Everything*/ 
     overflow: hidden;
 
