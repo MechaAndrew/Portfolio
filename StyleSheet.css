@@ -86,37 +86,8 @@ body {
     cursor: pointer;
 }
 .topbar {
-    /* border: 10px solid black; */
-  /* outline: #4CAF50 solid 10px; */
-
     display: flex;
-    flex-wrap: nowrap;
-    justify-content:space-between;
-        flex-direction: row;
-    gap: 2%;
-    background-color: #1A1A1A;
-    border-bottom: 2px solid #111;
-    color: #fff;
-    box-sizing: border-box;
-    height: 100px;
-    flex-shrink: 0;;
-
-    /* padding-top: 30px; */
-    /* padding-bottom: 40px; */
-    padding-left: 10vw;
-       /* Use viewport units for smaller padding */
-    padding-right: 10vw;
-
-    z-index: 2;
-    /* overflow-x: hidden; */
-    /* width: 100%; */
-
-    align-items: center;  /*Center Everything*/ 
-    overflow: hidden;
-
-/* 
-    display: flex;
-    flex-wrap: nowrap; Prevent wrapping
+    flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: left;
     gap: 3%;
     padding-top: 30px;
@@ -128,8 +99,7 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     border-bottom: 2px solid #111;
-    z-index: 2;
-    overflow-x: hidden; Prevent horizontal scroll */
+	z-index: 2;
 }
 .tab {
     color: white;
@@ -143,9 +113,6 @@ body {
     gap: 8px;            /* Space between icon and text */
     /* font-size: 22px;     Reduce font size for mobile */
     padding: 0 8px;
-    flex: 1 1 0; /* Allow tabs to shrink/grow */
-    min-width: 0; /* Allow shrinking to fit container */
-    justify-content: center;
 }
 
 .tab p {
