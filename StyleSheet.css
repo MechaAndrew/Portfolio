@@ -87,7 +87,7 @@ body {
 }
 .topbar {
     display: flex;
-    flex-wrap: wra; /* Prevent wrapping */
+    flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: left;
     gap: 3%;
     padding-top: 30px;
@@ -99,7 +99,8 @@ body {
     padding-left: 10%;
     padding-right: 10%;
     border-bottom: 2px solid #111;
-	z-index: 2;
+    z-index: 2;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 .tab {
     color: white;
