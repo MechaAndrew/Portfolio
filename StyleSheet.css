@@ -103,6 +103,9 @@ body {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+	
+ 	flex-direction: row;
+  	align-items: center;  /*Center Everything*/ 
 
 /* 
     display: flex;
