@@ -110,7 +110,7 @@ body {
 /*    font-size: 1.1em;*/
     font-size: 35px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     white-space: nowrap; /* Prevent text from wrapping under the icon */
     gap: 8px;            /* Space between icon and text */
