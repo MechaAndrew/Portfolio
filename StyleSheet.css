@@ -107,11 +107,10 @@ body {
     color: white;
     text-decoration: none;
     font-weight: bold;
-/*    font-size: 1.1em;*/
     font-size: 35px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; /* Make icon and text side by side */
+    align-items: center;  /* Vertically center icon and text */
     white-space: nowrap; /* Prevent text from wrapping under the icon */
     gap: 8px;            /* Space between icon and text */
     /* font-size: 22px;     Reduce font size for mobile */
@@ -126,10 +125,10 @@ body {
 }
 
 .tab img {
-  width: 50px;
-    height: auto;
+    max-height: 32px; /* Scale icon to fit tab height */
+    width: auto;
     object-fit: contain;
-    display: block;
+    display: inline-block;
 }
 
 .tab p {
