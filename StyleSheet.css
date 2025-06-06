@@ -124,6 +124,15 @@ body {
     justify-content: center;
 }
 
+.tab a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+}
+
 .tab img {
     max-height: 32px; /* Scale icon to fit tab height */
     width: auto;
