@@ -134,10 +134,10 @@ body {
 }
 
 .tab img {
-    max-height: 100px; /* Scale icon to fit tab height */
+    max-height: 32px; /* Scale icon to fit tab height */
     width: auto;
-    object-fit:scale-down;
-    display:block;
+    object-fit: contain;
+    display: inline-block;
 }
 
 .tab p {
