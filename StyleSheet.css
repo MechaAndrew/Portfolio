@@ -118,14 +118,14 @@ body {
         flex: 0.5 0.5 0.5;
          /* Allow tabs to shrink/grow */
     min-width: 0; /* Allow shrinking to fit container */
-    width: 100%;
-    height: auto;
+    /* width: 100%; */
+    /* height: auto; */
     justify-content: center;
 }
 
 .tab img {
     max-height: 32px;
-    width: auto;
+    width: 50px;
     vertical-align: middle;
     object-fit: contain;
     display: inline-block;
