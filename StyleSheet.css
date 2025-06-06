@@ -124,11 +124,10 @@ body {
 }
 
 .tab img {
-    max-height: 32px;
-    width: 50px;
-    vertical-align: middle;
+    max-height: auto;
+    height: auto;
     object-fit: contain;
-    display: inline-block;
+    display: block;
 }
 
 .tab p {
