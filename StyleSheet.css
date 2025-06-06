@@ -594,3 +594,16 @@ body {
     display: none;
   }
 } */
+@media (max-width: 600px) {
+  .tab {
+    font-size: 14px;
+    gap: 4px;
+    flex-direction: row !important;
+    align-items: center;
+    padding: 2px 4px;
+  }
+  .tab img {
+    max-height: 18px;
+    width: auto;
+  }
+}
