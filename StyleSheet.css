@@ -136,8 +136,8 @@ body {
 .tab img {
     max-height: 100px; /* Scale icon to fit tab height */
     width: auto;
-    object-fit: contain;
-    display: inline-block;
+    object-fit:scale-down;
+    display:block;
 }
 
 .tab p {
