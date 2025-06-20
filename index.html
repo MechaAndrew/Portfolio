@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(res => res.text())
     .then(html => {
       document.getElementById('Sidebar').innerHTML = html;
-      setupSidebar();
+      setupSidebar(); // <-- Call this after sidebar is loaded
     });
 
   // Fetch TopBar (use correct case!)
@@ -282,6 +282,41 @@ document.addEventListener("DOMContentLoaded", function() {
     
     <div class="node-group" style="padding-top: 200px;"> 
       
+      <!--Start Node-->
+      <div class="node" id="recent_work5" style="width: 50%; background-color: #35C9FF">
+        <div class="node-header">
+          <p>About me!</p>
+          <div class="node-output-detail" style="border: 3px solid #1287B1"></div>
+        </div>
+        <div class="node-body"> <a href="#recent_work6" style="text-decoration: none; display: block;"> <span class="node-left-icon node-lineAnchor" id="anchor14">&#11208;</span> </a> <a href="#recent_work6" style="text-decoration: none; display: block;"> <span class="node-right-icon node-lineAnchor" id="anchor15">&#11208;</span> </a>
+          <div class="node-contents" href="#"> 
+            <br>
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p style=" width: 60%;">I'm a hybrid game designer and programmer specializing in Unreal Engine 5.<br></p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #B111A6"></div>
+              <p style=" width: 60%;">I am a adaptable generalist allowing me to tackle almost all aspects when making a game.<br></p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+            <!--Start Node Info-->
+            <div class="node-info">
+              <div class="node-info-section" style="border: 3px solid #11B141"></div>
+              <p style=" width: 60%;">This entire website was coded all by me and is visually inspired by Unreal Engine 5 Blueprint system.<br></p>
+            </div>
+            <br>
+            <!--End Node Info--> 
+			  
+          </div>
+          </a> </div>
+      </div>
+      <!--End Node--> 
       
       
        </div>
