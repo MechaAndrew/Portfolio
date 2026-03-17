@@ -1,38 +1,231 @@
-var coll = document.getElementsByClassName("collapsible");
-var i;
+// Scroll Logo Rotation + Horizontal Scroll Sync
+const scrollLogoArea = document.querySelector('.scroll-logo');
+const graphArea = document.querySelector('.graph-area');
+let isRotating = false;
+let lastY = 0;
+let lastX = 0;
+let currentRotation = 0;
+let lastScrollLeft = 0;
+let isScrollingFromRotation = false;
 
-	
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-		this.innerHTML = this.innerHTML.replace("▼", "▶");
+let logoVelocity = 0;
+let isLogoMomentum = false;
+const logoFriction = 0.94;
+const logoDampening = 0.35;
+
+const scrollNotify = document.getElementById('scroll-notify');
+let notifyTimeout;
+let currentActiveSection = null;
+
+// Conversion factor: pixels scrolled = degrees rotated
+const scrollToRotationFactor = 1; // 1 pixel scroll = 1 degree rotation
+
+scrollLogoArea.addEventListener('mousedown', (e) => {
+  isRotating = true;
+  lastY = e.clientY;
+  lastX = e.clientX;
+  scrollLogoArea.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isRotating) return;
+  
+  const deltaY = e.clientY - lastY;
+  currentRotation += deltaY;
+  logoVelocity = deltaY * 0.7;
+  
+  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+  
+  // Scroll the page horizontally based on rotation change
+  const scrollDelta = deltaY * scrollToRotationFactor;
+  isScrollingFromRotation = true;
+  graphArea.scrollLeft += scrollDelta;
+  lastScrollLeft = graphArea.scrollLeft;
+  isScrollingFromRotation = false;
+  
+  lastY = e.clientY;
+});
+
+document.addEventListener('mouseup', () => {
+  if (isRotating) {
+    isRotating = false;
+    scrollLogoArea.style.cursor = 'grab';
+
+    // Start inertia momentum
+    if (Math.abs(logoVelocity) > 0.1) {
+      if (!isLogoMomentum) {
+        isLogoMomentum = true;
+        requestAnimationFrame(runLogoMomentum);
+      }
     } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-		this.innerHTML = this.innerHTML.replace("▶", "▼");
+      // If almost still, do a natural snap
+      snapLogoToNearest();
+    }
+  }
+});
+
+function snapLogoToNearest() {
+  const snapAngle = 22.5;
+  const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
+  scrollLogoArea.style.transition = 'transform 0.3s ease-in-out';
+  scrollLogoArea.style.transform = `rotate(${snappedRotation}deg)`;
+  currentRotation = snappedRotation;
+  setTimeout(() => {
+    scrollLogoArea.style.transition = 'none';
+  }, 300);
+}
+
+function runLogoMomentum() {
+  if (!isLogoMomentum) return;
+  logoVelocity *= logoFriction;
+  if (Math.abs(logoVelocity) < 0.2) {
+    isLogoMomentum = false;
+    logoVelocity = 0;
+    snapLogoToNearest();
+    return;
+  }
+
+  currentRotation += logoVelocity;
+  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+
+  const scrollDelta = logoVelocity * scrollToRotationFactor;
+  graphArea.scrollLeft += scrollDelta;
+  isScrollingFromRotation = true;
+  lastScrollLeft = graphArea.scrollLeft;
+  isScrollingFromRotation = false;
+
+  requestAnimationFrame(runLogoMomentum);
+}
+
+scrollLogoArea.style.cursor = 'grab';
+
+// Make mouse wheel scroll horizontally over graph area with momentum
+let wheelVelocity = 0;
+let isWheelMomentum = false;
+const wheelDampening = 0.1;
+const wheelFriction = 0.95;
+
+function runWheelMomentum() {
+  if (Math.abs(wheelVelocity) < 0.2) {
+    isWheelMomentum = false;
+    wheelVelocity = 0;
+    return;
+  }
+  graphArea.scrollLeft += wheelVelocity;
+  wheelVelocity *= wheelFriction;
+  requestAnimationFrame(runWheelMomentum);
+}
+
+graphArea.addEventListener('wheel', (e) => {
+  if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+    e.preventDefault();
+    wheelVelocity += e.deltaY * wheelDampening;
+    if (!isWheelMomentum) {
+      isWheelMomentum = true;
+      requestAnimationFrame(runWheelMomentum);
+    }
+  }
+});
+
+// Start Scroll Notify Area
+
+function parseTitleFromSectionId(id) {
+  if (!id) return '';
+  const prefix = id.replace(/-section$/, '');
+  return prefix.replace(/-/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+}
+
+function showScrollNotify(message) {
+  if (!scrollNotify) return;
+  scrollNotify.textContent = message;
+  scrollNotify.classList.add('visible');
+  clearTimeout(notifyTimeout);
+  notifyTimeout = setTimeout(() => {
+    scrollNotify.classList.remove('visible');
+  }, 2000);
+}
+
+function updateScrollNotifyOnScroll() {
+  const sections = [...document.querySelectorAll('.node-group[id$="-section"]')];
+  if (!sections.length) return;
+
+  const areaRect = graphArea.getBoundingClientRect();
+  let bestSection = null;
+  let bestRatio = 0;
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const visibleWidth = Math.max(0, Math.min(rect.right, areaRect.right) - Math.max(rect.left, areaRect.left)*2);
+    const ratio = rect.width > 0 ? visibleWidth / rect.width : 0;
+    if (ratio > bestRatio) {
+      bestRatio = ratio;
+      bestSection = section;
     }
   });
+
+  if (bestSection && bestRatio > 0.25) {
+    const sectionId = bestSection.id;
+    if (sectionId !== currentActiveSection) {
+      currentActiveSection = sectionId;
+      const title = parseTitleFromSectionId(sectionId);
+      showScrollNotify(title || 'Section');
+    }
+  }
 }
+
+// Sync rotation to horizontal scroll
+graphArea.addEventListener('scroll', (e) => {
+  const scrollDelta = graphArea.scrollLeft - lastScrollLeft;
+  currentRotation += scrollDelta * scrollToRotationFactor;
+  
+  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+  lastScrollLeft = graphArea.scrollLeft;
+
+  updateScrollNotifyOnScroll();
+});
+// End Scroll Notify Area
+
+
+// 
+//END Scroll Logo Rotation + Horizontal Scroll Sync
+// 
+
+// Collapsible sidebar
+// var coll = document.getElementsByClassName("collapsible");
+// var i;
+// for (i = 0; i < coll.length; i++) {
+//   coll[i].addEventListener("click", function() {
+//     this.classList.toggle("active");
+//     var content = this.nextElementSibling;
+//     if (content.style.maxHeight){
+//       content.style.maxHeight = null;
+// 		this.innerHTML = this.innerHTML.replace("▼", "▶");
+//     } else {
+//       content.style.maxHeight = content.scrollHeight + "px";
+// 		this.innerHTML = this.innerHTML.replace("▶", "▼");
+//     }
+//   });
+// }
 	//Side Bar Drop Down code
 	
 	//Scroll Down the clicked code
-document.querySelectorAll('a[href^="#recent_work"], a[href^="#work_detail"]').forEach(link => {
+document.querySelectorAll('a[href^="#node-jump"], a[href^="#work_detail"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault(); // prevent default anchor jump
 
     const targetId = this.getAttribute('href').substring(1); // remove '#'
     const target = document.getElementById(targetId);
-    const container = document.querySelector('.graph-area');
+    // const container = document.querySelector('.graph-area');
+    const container = graphArea;
 
-    if (target && graphArea) {
-      e.preventDefault();
-      // Calculate offset relative to .graph-area
-      const areaRect = graphArea.getBoundingClientRect();
+    if (target && container) {
+      const areaRect = container.getBoundingClientRect();
       const targetRect = target.getBoundingClientRect();
-      const scrollTop = graphArea.scrollTop + (targetRect.top - areaRect.top);
-      container.scrollTo({ top: scrollTop, behavior: 'smooth' });
+
+      const nextScrollLeft = container.scrollLeft + (targetRect.left - areaRect.left);
+      const nextScrollTop = container.scrollTop + (targetRect.top - areaRect.top);
+
+      container.scrollTo({ left: nextScrollLeft, top: nextScrollTop, behavior: 'smooth' });
     }
   });
 });
@@ -67,8 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // Play video when hovered
 
 
-
+// ------------------------------------------------------------------------------------------------
 	//Curve Code
+// ------------------------------------------------------------------------------------------------
 	class CubicBezier {
      static distance(a, b) {
        const dx = b.x - a.x;
@@ -147,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
    //// Main
 
 // Setup canvas inside .graph-area
-const graphArea = document.querySelector('.graph-area');
+// const graphArea = document.querySelector('.graph-area');
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -219,6 +413,7 @@ window.addEventListener("load", () => {
   resizeCanvasToGraphArea();
   updateAnchorElements();
   draw();
+  updateScrollNotifyOnScroll();
 });
 
 // Handle resize
@@ -226,6 +421,7 @@ window.addEventListener("resize", () => {
   resizeCanvasToGraphArea();
   updateAnchorElements();
   scheduleDraw();
+  updateScrollNotifyOnScroll();
 });
 
 // Redraw on graph-area scroll (not window scroll)
