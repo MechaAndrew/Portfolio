@@ -5,6 +5,7 @@ let isRotating = false;
 let lastY = 0;
 let lastX = 0;
 let currentRotation = 0;
+let shakeOffset = 0;
 let lastScrollLeft = 0;
 let isScrollingFromRotation = false;
 
@@ -20,6 +21,70 @@ let currentActiveSection = null;
 // Conversion factor: pixels scrolled = degrees rotated
 const scrollToRotationFactor = 1; // 1 pixel scroll = 1 degree rotation
 
+const secretLogoCode = [7, 7, 5, 5, 6, 8, 6, 8, 1, 3, 2, 4];
+let secretLogoProgress = 0;
+
+const logoButtonAudio = {
+  correct: new Audio('./assets/Logo Button Correct.mp3'),
+  fail: new Audio('./assets/Logo Button Fail.mp3'),
+  success: new Audio('./assets/Logo Button Yay.mp3')
+};
+
+function renderScrollLogoTransform() {
+  scrollLogoArea.style.transform = `translateX(${shakeOffset}px) rotate(${currentRotation}deg)`;
+}
+
+function playLogoButtonAudio(type) {
+  const audio = logoButtonAudio[type];
+  if (!audio) return;
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+}
+
+function runLogoFailureShake() {
+  const startTime = performance.now();
+  const duration = 350;
+  const maxOffset = 8;
+
+  function frame(timestamp) {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const decay = 1 - progress;
+    shakeOffset = Math.sin(progress * Math.PI * 8) * maxOffset * decay;
+    renderScrollLogoTransform();
+
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+      return;
+    }
+
+    shakeOffset = 0;
+    renderScrollLogoTransform();
+  }
+
+  requestAnimationFrame(frame);
+}
+
+function handleSecretLogoButtonPress(buttonNumber) {
+  const expectedButton = secretLogoCode[secretLogoProgress];
+
+  if (buttonNumber === expectedButton) {
+    playLogoButtonAudio('correct');
+    secretLogoProgress += 1;
+
+    if (secretLogoProgress === secretLogoCode.length) {
+      playLogoButtonAudio('success');
+      secretLogoProgress = 0;
+    }
+
+    return;
+  }
+
+  playLogoButtonAudio('fail');
+  secretLogoProgress = 0;
+  runLogoFailureShake();
+}
+
 scrollLogoArea.addEventListener('mousedown', (e) => {
   isRotating = true;
   lastY = e.clientY;
@@ -34,7 +99,7 @@ document.addEventListener('mousemove', (e) => {
   currentRotation += deltaY;
   logoVelocity = deltaY * 0.7;
   
-  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+  renderScrollLogoTransform();
   
   // Scroll the page horizontally based on rotation change
   const scrollDelta = deltaY * scrollToRotationFactor;
@@ -68,8 +133,8 @@ function snapLogoToNearest() {
   const snapAngle = 22.5;
   const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
   scrollLogoArea.style.transition = 'transform 0.3s ease-in-out';
-  scrollLogoArea.style.transform = `rotate(${snappedRotation}deg)`;
   currentRotation = snappedRotation;
+  renderScrollLogoTransform();
   setTimeout(() => {
     scrollLogoArea.style.transition = 'none';
   }, 300);
@@ -86,7 +151,7 @@ function runLogoMomentum() {
   }
 
   currentRotation += logoVelocity;
-  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+  renderScrollLogoTransform();
 
   const scrollDelta = logoVelocity * scrollToRotationFactor;
   graphArea.scrollLeft += scrollDelta;
@@ -98,6 +163,20 @@ function runLogoMomentum() {
 }
 
 scrollLogoArea.style.cursor = 'grab';
+renderScrollLogoTransform();
+
+document.querySelectorAll('[id^="special-button"]').forEach(button => {
+  button.addEventListener('mousedown', (event) => {
+    event.stopPropagation();
+  });
+
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const buttonNumber = parseInt(button.id.replace('special-button', ''), 10);
+    handleSecretLogoButtonPress(buttonNumber);
+  });
+});
 
 // Make mouse wheel scroll horizontally over graph area with momentum
 let wheelVelocity = 0;
@@ -192,7 +271,7 @@ graphArea.addEventListener('scroll', (e) => {
   const scrollDelta = graphArea.scrollLeft - lastScrollLeft;
   currentRotation += scrollDelta * scrollToRotationFactor;
   
-  scrollLogoArea.style.transform = `rotate(${currentRotation}deg)`;
+  renderScrollLogoTransform();
   lastScrollLeft = graphArea.scrollLeft;
 
   updateScrollNotifyOnScroll();
@@ -226,6 +305,13 @@ graphArea.addEventListener('scroll', (e) => {
 document.querySelectorAll('a[href^="#node-jump"], a[href^="#work_detail"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault(); // prevent default anchor jump
+
+    // Animate the connecting segment
+    const anchorImg = this.querySelector('[id^="anchor"]');
+    if (anchorImg) {
+      const anchorNum = parseInt(anchorImg.id.replace('anchor', ''), 10);
+      startSegmentAnimation(anchorNum - 1);
+    }
 
     const targetId = this.getAttribute('href').substring(1); // remove '#'
     const target = document.getElementById(targetId);
@@ -399,15 +485,93 @@ function getAnchorPoints() {
     .filter(Boolean);
 }
 
-// Main draw function (throttled)
+// Segment animation state
+let animatingSegment = null;
+let animRafId = null;
+
+function lerpColor(c1, c2, t) {
+  return [
+    Math.round(c1[0] + (c2[0] - c1[0]) * t),
+    Math.round(c1[1] + (c2[1] - c1[1]) * t),
+    Math.round(c1[2] + (c2[2] - c1[2]) * t)
+  ];
+}
+
+function getAnimatedSegmentStyle(progress) {
+  const white  = [255, 255, 255];
+  const orange = [255, 140,   0];
+  const yellow = [255, 255,   0];
+  let rgb;
+  if (progress < 0.3)       rgb = lerpColor(white,  orange, progress / 0.3);
+  else if (progress < 0.6)  rgb = lerpColor(orange, yellow, (progress - 0.3) / 0.3);
+  else if (progress < 0.9)  rgb = lerpColor(yellow, orange, (progress - 0.6) / 0.3);
+  else                      rgb = lerpColor(orange, white,  (progress - 0.9) / 0.1);
+  const lineWidth = 10 * (1 + Math.sin(progress * Math.PI * 10) * 0.1);
+  return { color: `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`, lineWidth };
+}
+
+function startSegmentAnimation(segmentIndex) {
+  animatingSegment = { index: segmentIndex, startTime: performance.now(), duration: 2000, progress: 0 };
+  if (animRafId) cancelAnimationFrame(animRafId);
+  function frame(timestamp) {
+    animatingSegment.progress = Math.min((timestamp - animatingSegment.startTime) / animatingSegment.duration, 1);
+    draw();
+    if (animatingSegment.progress < 1) {
+      animRafId = requestAnimationFrame(frame);
+    } else {
+      animatingSegment = null;
+      animRafId = null;
+      draw();
+    }
+  }
+  animRafId = requestAnimationFrame(frame);
+}
+
+function drawSingleSegment(points, segIdx, z, angleFactor, horizontalThreshold) {
+  const p0 = points[segIdx - 1] || points[segIdx];
+  const p1 = points[segIdx];
+  const p2 = points[segIdx + 1];
+  const p3 = points[segIdx + 2] || p2;
+  if (Math.abs(p1.y - p2.y) <= horizontalThreshold) {
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+    return;
+  }
+  const angleA = CubicBezier.polar(p0, p2);
+  const angleB = CubicBezier.polar(p1, p3);
+  const lenA   = CubicBezier.distance(p0, p1) * z;
+  const lenB   = CubicBezier.distance(p1, p2) * z;
+  const c1x = p1.x + Math.cos(angleA) * lenA * angleFactor;
+  const c1y = p1.y + Math.sin(angleA) * lenA * angleFactor;
+  const c2x = p2.x - Math.cos(angleB) * lenB * angleFactor;
+  const c2y = p2.y - Math.sin(angleB) * lenB * angleFactor;
+  ctx.beginPath();
+  ctx.moveTo(p1.x, p1.y);
+  ctx.bezierCurveTo(c1x, c1y, c2x, c2y, p2.x, p2.y);
+  ctx.stroke();
+}
+
+// Main draw function
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.lineWidth = 10;
-  ctx.strokeStyle = "#FFFFFF";
 
   const anchorPoints = getAnchorPoints();
-  if (anchorPoints.length > 1) {
-    CubicBezier.curveThroughPoints(ctx, anchorPoints, 0.15, 2.5);
+  if (anchorPoints.length < 2) return;
+
+  const z = 0.15, angleFactor = 2.5, horizontalThreshold = 1;
+
+  for (let i = 0; i < anchorPoints.length - 1; i++) {
+    if (animatingSegment && animatingSegment.index === i) {
+      const style = getAnimatedSegmentStyle(animatingSegment.progress);
+      ctx.lineWidth = style.lineWidth;
+      ctx.strokeStyle = style.color;
+    } else {
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#FFFFFF";
+    }
+    drawSingleSegment(anchorPoints, i, z, angleFactor, horizontalThreshold);
   }
 }
 
