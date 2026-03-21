@@ -635,7 +635,6 @@ canvas {
 .node-topic-keyword {
     width: 80px;
     min-height: 30px;
-    background-color: #1a1a1a;
     border-radius: 4px;
     display: flex;
     align-items: center;
