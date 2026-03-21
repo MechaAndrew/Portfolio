@@ -8,6 +8,8 @@ let currentRotation = 0;
 let shakeOffset = 0;
 let lastScrollLeft = 0;
 let isScrollingFromRotation = false;
+let introSpinRafId = null;
+let isIntroSpinning = false;
 
 let logoVelocity = 0;
 let isLogoMomentum = false;
@@ -39,6 +41,43 @@ function playLogoButtonAudio(type) {
   if (!audio) return;
   audio.currentTime = 0;
   audio.play().catch(() => {});
+}
+
+function stopInitialLogoSpin(resetRotation = false) {
+  if (introSpinRafId) {
+    cancelAnimationFrame(introSpinRafId);
+    introSpinRafId = null;
+  }
+
+  isIntroSpinning = false;
+
+  if (resetRotation) {
+    currentRotation = 0;
+    renderScrollLogoTransform();
+  }
+}
+
+function runInitialLogoSpin() {
+  const duration = 1450;
+  const totalRotation = 720;
+  const startTime = performance.now();
+  isIntroSpinning = true;
+
+  function frame(timestamp) {
+    const progress = Math.min((timestamp - startTime) / duration, 1);
+    const easedProgress = 1 - Math.pow(1 - progress, 3);
+    currentRotation = totalRotation * easedProgress;
+    renderScrollLogoTransform();
+
+    if (progress < 1) {
+      introSpinRafId = requestAnimationFrame(frame);
+      return;
+    }
+
+    stopInitialLogoSpin(true);
+  }
+
+  introSpinRafId = requestAnimationFrame(frame);
 }
 
 function runLogoFailureShake() {
@@ -86,6 +125,10 @@ function handleSecretLogoButtonPress(buttonNumber) {
 }
 
 scrollLogoArea.addEventListener('mousedown', (e) => {
+  if (isIntroSpinning) {
+    stopInitialLogoSpin(true);
+  }
+
   isRotating = true;
   lastY = e.clientY;
   lastX = e.clientX;
@@ -196,6 +239,10 @@ function runWheelMomentum() {
 }
 
 graphArea.addEventListener('wheel', (e) => {
+  if (isIntroSpinning) {
+    stopInitialLogoSpin(true);
+  }
+
   if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
     e.preventDefault();
     wheelVelocity += e.deltaY * wheelDampening;
@@ -592,6 +639,7 @@ window.addEventListener("load", () => {
   updateAnchorElements();
   draw();
   updateScrollNotifyOnScroll();
+  runInitialLogoSpin();
 });
 
 // Handle resize
