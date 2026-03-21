@@ -650,15 +650,15 @@ canvas {
     word-break: break-word;
     font-family: Bahnschrift SemiBold;
 }
-#topic-Gamedev {
+.topic-gamedev {
     background-color: #8b4897;
 }
 
-#topic-UE5 {
+.topic-ue5 {
     background-color: #6b7479;
 }
 
-#topic-Teamwork {
+.topic-teamwork {
     background-color: #33ac2f;
 }
 
