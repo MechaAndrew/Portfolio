@@ -157,6 +157,20 @@ function updateScrollNotifyOnScroll() {
     const rect = section.getBoundingClientRect();
     const visibleWidth = Math.max(0, Math.min(rect.right, areaRect.right) - Math.max(rect.left, areaRect.left)*2);
     const ratio = rect.width > 0 ? visibleWidth / rect.width : 0;
+    
+    // Handle video playback for this section
+    const video = section.querySelector('.node-video-background');
+    if (video) {
+      if (ratio > 0.25) {
+        video.classList.add('playing');
+        video.play().catch(() => {}); // Auto-play (may be blocked by browser)
+      } else {
+        video.classList.remove('playing');
+        video.pause();
+        video.currentTime = 0; // Reset to start
+      }
+    }
+    
     if (ratio > bestRatio) {
       bestRatio = ratio;
       bestSection = section;
