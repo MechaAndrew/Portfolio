@@ -10,6 +10,7 @@ let lastScrollLeft = 0;
 let isScrollingFromRotation = false;
 let introSpinRafId = null;
 let isIntroSpinning = false;
+let programScrollRaf = null;
 
 let logoVelocity = 0;
 let isLogoMomentum = false;
@@ -128,6 +129,10 @@ scrollLogoArea.addEventListener('mousedown', (e) => {
   if (isIntroSpinning) {
     stopInitialLogoSpin(true);
   }
+  if (programScrollRaf) {
+    cancelAnimationFrame(programScrollRaf);
+    programScrollRaf = null;
+  }
 
   isRotating = true;
   lastY = e.clientY;
@@ -245,6 +250,10 @@ graphArea.addEventListener('wheel', (e) => {
 
   if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
     e.preventDefault();
+    if (programScrollRaf) {
+      cancelAnimationFrame(programScrollRaf);
+      programScrollRaf = null;
+    }
     wheelVelocity += e.deltaY * wheelDampening;
     if (!isWheelMomentum) {
       isWheelMomentum = true;
@@ -309,6 +318,11 @@ function updateScrollNotifyOnScroll() {
       currentActiveSection = sectionId;
       const title = parseTitleFromSectionId(sectionId);
       showScrollNotify(title || 'Section');
+
+      // Restore any hidden node-visibles in the newly active section
+      bestSection.querySelectorAll('.node-visible').forEach(btn => {
+        if (typeof btn._restoreVisible === 'function') btn._restoreVisible();
+      });
     }
   }
 }
@@ -349,6 +363,43 @@ graphArea.addEventListener('scroll', (e) => {
 	//Side Bar Drop Down code
 	
 	//Scroll Down the clicked code
+function stopAllMomentum() {
+  wheelVelocity = 0;
+  isWheelMomentum = false;
+  logoVelocity = 0;
+  isLogoMomentum = false;
+  if (programScrollRaf) {
+    cancelAnimationFrame(programScrollRaf);
+    programScrollRaf = null;
+  }
+}
+
+function smoothScrollGraphTo(targetLeft, targetTop, duration = 1000) {
+  const startLeft = graphArea.scrollLeft;
+  const startTop = graphArea.scrollTop;
+  const diffLeft = targetLeft - startLeft;
+  const diffTop = targetTop - startTop;
+  const startTime = performance.now();
+
+  function step(timestamp) {
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // Cubic ease-in-out
+    const eased = progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    graphArea.scrollLeft = startLeft + diffLeft * eased;
+    graphArea.scrollTop  = startTop  + diffTop  * eased;
+    if (progress < 1) {
+      programScrollRaf = requestAnimationFrame(step);
+    } else {
+      programScrollRaf = null;
+    }
+  }
+
+  programScrollRaf = requestAnimationFrame(step);
+}
+
 document.querySelectorAll('a[href^="#node-jump"], a[href^="#work_detail"]').forEach(link => {
   link.addEventListener('click', function(e) {
     e.preventDefault(); // prevent default anchor jump
@@ -372,7 +423,8 @@ document.querySelectorAll('a[href^="#node-jump"], a[href^="#work_detail"]').forE
       const nextScrollLeft = container.scrollLeft + (targetRect.left - areaRect.left);
       const nextScrollTop = container.scrollTop + (targetRect.top - areaRect.top);
 
-      container.scrollTo({ left: nextScrollLeft, top: nextScrollTop, behavior: 'smooth' });
+      stopAllMomentum();
+      smoothScrollGraphTo(nextScrollLeft, nextScrollTop);
     }
   });
 });
@@ -610,6 +662,15 @@ function draw() {
   const z = 0.15, angleFactor = 2.5, horizontalThreshold = 1;
 
   for (let i = 0; i < anchorPoints.length - 1; i++) {
+    // Check if either endpoint of this segment is inside a faded node
+    const elA = anchorElements[i];
+    const elB = anchorElements[i + 1];
+    const aFaded = elA && elA.closest('.node--faded');
+    const bFaded = elB && elB.closest('.node--faded');
+    const segmentFaded = aFaded || bFaded;
+
+    ctx.globalAlpha = segmentFaded ? 0 : 1;
+
     if (animatingSegment && animatingSegment.index === i) {
       const style = getAnimatedSegmentStyle(animatingSegment.progress);
       ctx.lineWidth = style.lineWidth;
@@ -620,6 +681,8 @@ function draw() {
     }
     drawSingleSegment(anchorPoints, i, z, angleFactor, horizontalThreshold);
   }
+
+  ctx.globalAlpha = 1;
 }
 
 let drawScheduled = false;
@@ -662,6 +725,74 @@ observer.observe(graphArea, { childList: true, subtree: true });
 // Initial draw and resize
 resizeCanvasToGraphArea();
 draw();
+
+// Node visibility toggle (hover to preview-hide, click to pin-hide, click outside to restore)
+document.querySelectorAll('.node-visible').forEach(btn => {
+  const node = btn.closest('.node');
+  if (!node) return;
+
+  let isPinned = false;
+  const img = btn.querySelector('img');
+  const openSrc   = 'assets/Node-Visible-Open.png';
+  const hiddenSrc = 'assets/Node-Visible-Hidden.png';
+  const header = node.querySelector('.node-header');
+  let savedHeaderBg = null;
+
+  function fadeOut() {
+    // Save and clear any inline background-color on the header so CSS can hide it
+    if (header) {
+      savedHeaderBg = header.style.backgroundColor || null;
+      header.style.backgroundColor = 'transparent';
+    }
+    node.classList.add('node--faded');
+    img.src = hiddenSrc;
+    draw();
+  }
+
+  function fadeIn() {
+    node.classList.remove('node--faded');
+    // Restore the saved inline background-color
+    if (header) {
+      header.style.backgroundColor = savedHeaderBg || '';
+      savedHeaderBg = null;
+    }
+    img.src = openSrc;
+    draw();
+  }
+
+  // Expose restore function so scroll handler can call it
+  btn._restoreVisible = () => {
+    if (isPinned || node.classList.contains('node--faded')) {
+      isPinned = false;
+      fadeIn();
+    }
+  };
+
+  btn.addEventListener('mouseenter', () => {
+    fadeOut();
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    if (!isPinned) fadeIn();
+  });
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isPinned = !isPinned;
+    if (isPinned) {
+      fadeOut();
+    } else {
+      fadeIn();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (isPinned && !btn.contains(e.target)) {
+      isPinned = false;
+      fadeIn();
+    }
+  });
+});
 
 function setupSidebar() {
   var coll = document.getElementsByClassName("collapsible");

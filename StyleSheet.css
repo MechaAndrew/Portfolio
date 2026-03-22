@@ -261,11 +261,11 @@ body {
     flex-wrap: nowrap;
     /* Prevent wrapping */
     justify-content: left;
-    gap: 3%;
+    gap: clamp(4px, 1.5vw, 20px);
     padding-top: 30px;
     padding-bottom: 40px;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: clamp(6px, 3vw, 80px);
+    padding-right: clamp(6px, 3vw, 80px);
     background-color: #1A1A1A;
     color: #fff;
     height: 32px;
@@ -285,7 +285,7 @@ body {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 35px;
+    font-size: clamp(11px, 2.5vw, 35px);
     display: flex;
     flex-direction: column;
     /* Make icon and text side by side */
@@ -293,10 +293,9 @@ body {
     /* Vertically center icon and text */
     white-space: nowrap;
     /* Prevent text from wrapping under the icon */
-    gap: 8px;
+    gap: clamp(3px, 0.5vw, 8px);
     /* Space between icon and text */
-    /* font-size: 22px;     Reduce font size for mobile */
-    padding: 0 8px;
+    padding: 0 clamp(3px, 0.5vw, 8px);
     flex: 0.5 0.5 0.5;
     /* Allow tabs to shrink/grow */
     min-width: 0;
@@ -308,19 +307,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: clamp(3px, 0.5vw, 8px);
     color: inherit;
     text-decoration: none;
     font-family: Bahnschrift SemiBold;
 }
 
 .tab img {
-    max-height: 48px;
+    max-height: clamp(18px, 3.5vw, 48px);
+    height: clamp(18px, 3.5vw, 48px);
     width: auto;
     align-items: center;
     object-fit: fill;
     display: inline-block;
-    /* transform: translate(0, 25%); */
 }
 
 .tab p {
@@ -342,6 +341,65 @@ body {
     color: #96a7ae;
     text-shadow: -1px -1px 0 #4A4A4A, 1px -1px 0 #4A4A4A, -1px 1px 0 #4A4A4A, 1px 1px 0 #4A4A4A;
 }
+
+/* ── Tab icon hover animations ─────────────────────────────────────────── */
+
+/* Shared base: smooth exit transition for all tab icons */
+.tab img {
+    transition: transform 0.35s ease;
+}
+
+/* 1. Home – rotate 190° in, rotate back out */
+.tab-home:hover img {
+    transform: rotate(190deg);
+    transition: transform 0.5s ease;
+}
+
+/* 2. Projects – grow while shaking excitedly, then shrink, loop */
+@keyframes tab-projects-jingle {
+    0%   { transform: scale(1)    translateX(0)    rotate(0deg);  }
+    12%  { transform: scale(1.08) translateX(-4px) rotate(-7deg); }
+    25%  { transform: scale(1.17) translateX(4px)  rotate(7deg);  }
+    37%  { transform: scale(1.22) translateX(-4px) rotate(-7deg); }
+    50%  { transform: scale(1.22) translateX(4px)  rotate(7deg);  }
+    62%  { transform: scale(1.12) translateX(-3px) rotate(-4deg); }
+    75%  { transform: scale(1.02) translateX(3px)  rotate(4deg);  }
+    87%  { transform: scale(0.94) translateX(-1px) rotate(-1deg); }
+    100% { transform: scale(1)    translateX(0)    rotate(0deg);  }
+}
+
+.tab-projects:hover img {
+    animation: tab-projects-jingle 0.9s ease-in-out infinite;
+}
+
+/* 3. About – jump up then recoil down, loop */
+@keyframes tab-about-jump {
+    0%   { transform: translateY(0);     }
+    30%  { transform: translateY(-13px); }
+    50%  { transform: translateY(-14px); }
+    65%  { transform: translateY(0);     }
+    75%  { transform: translateY(5px);   }
+    85%  { transform: translateY(-4px);  }
+    93%  { transform: translateY(2px);   }
+    100% { transform: translateY(0);     }
+}
+
+.tab-about:hover img {
+    animation: tab-about-jump 0.8s ease-in-out infinite;
+}
+
+/* 4. Contact – scale up 10% then down 10%, loop */
+@keyframes tab-contact-pulse {
+    0%   { transform: scale(1);   }
+    35%  { transform: scale(1.1); }
+    65%  { transform: scale(0.9); }
+    100% { transform: scale(1);   }
+}
+
+.tab-contact:hover img {
+    animation: tab-contact-pulse 0.9s ease-in-out infinite;
+}
+/* ── End tab icon hover animations ─────────────────────────────────────── */
 
 /*
 .construction-info {
@@ -497,7 +555,8 @@ canvas {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    transition: height 0.4s ease, transform 0.4s ease;
+    transition: height 0.4s ease, transform 0.4s ease,
+                background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     /* z-index: 1; */
     /*    will-change: transform;*/
 }
@@ -515,6 +574,8 @@ canvas {
     flex-shrink: 0;
     overflow: hidden;
     background-color: #FF3535;
+    position: relative;
+    transition: background-color 0.35s ease;
 }
 
 .node-header p {
@@ -534,6 +595,57 @@ canvas {
     height: 25px;
     background: black;
     border: 3px solid #8E0000;
+}
+
+.node-visible {
+    position: absolute;
+    right: 3%;
+    top: 25%;
+    bottom: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    z-index: 5;
+    background: none;
+    border:#808080 solid 2px;
+    border-radius: 4px;
+    opacity: 0.5;
+    padding: 0;
+    transition: opacity 0.15s ease;
+}
+
+.node-visible img {
+    height: 100%;
+    width: auto;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+
+.node-visible:hover {
+    opacity: 0.75;
+}
+
+/* Fade transitions for node content when toggled hidden */
+.node-header > :not(.node-visible),
+.node-body {
+    transition: opacity 0.35s ease;
+}
+
+.node--faded {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* Inline background-color on .node-header is handled by JS (saved and cleared on fade) */
+
+.node--faded > .node-header > :not(.node-visible),
+.node--faded > .node-body {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .node-body {
@@ -1026,18 +1138,15 @@ transform: scale(1.1);
     display: none;
   }
 } */
-@media (max-width: 600px) {
-    .tab {
-        font-size: 14px;
-        gap: 4px;
-        flex-direction: row !important;
-        align-items: center;
-        padding: 2px 4px;
+/* Hide pipe dividers on very small screens to save horizontal space */
+@media (max-width: 430px) {
+    .topbar {
+        padding-left: 4px;
+        padding-right: 4px;
+        gap: 2px;
     }
-
-    .tab img {
-        max-height: 18px;
-        width: auto;
+    .tab_divider {
+        display: none;
     }
 }
 
