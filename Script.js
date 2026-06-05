@@ -1,5 +1,6 @@
 // Scroll Logo Rotation + Horizontal Scroll Sync
-const scrollLogoArea = document.querySelector('.scroll-logo');
+let scrollLogoArea = null;
+let scrollLogoInitialized = false;
 const graphArea = document.querySelector('.graph-area');
 let isRotating = false;
 let lastY = 0;
@@ -34,6 +35,7 @@ const logoButtonAudio = {
 };
 
 function renderScrollLogoTransform() {
+  if (!scrollLogoArea) return;
   scrollLogoArea.style.transform = `translateX(${shakeOffset}px) rotate(${currentRotation}deg)`;
 }
 
@@ -43,6 +45,58 @@ function playLogoButtonAudio(type) {
   audio.currentTime = 0;
   audio.play().catch(() => {});
 }
+
+function initScrollLogo() {
+  if (scrollLogoInitialized) return true;
+  scrollLogoArea = document.querySelector('.scroll-logo');
+  if (!scrollLogoArea) return false;
+
+  scrollLogoArea.addEventListener('mousedown', (e) => {
+    if (isIntroSpinning) {
+      stopInitialLogoSpin(true);
+    }
+    if (programScrollRaf) {
+      cancelAnimationFrame(programScrollRaf);
+      programScrollRaf = null;
+    }
+
+    isRotating = true;
+    lastY = e.clientY;
+    lastX = e.clientX;
+    scrollLogoArea.style.cursor = 'grabbing';
+  });
+
+  document.querySelectorAll('[id^="special-button"]').forEach(button => {
+    button.addEventListener('mousedown', (event) => {
+      event.stopPropagation();
+    });
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const buttonNumber = parseInt(button.id.replace('special-button', ''), 10);
+      handleSecretLogoButtonPress(buttonNumber);
+    });
+  });
+
+  scrollLogoArea.style.cursor = 'grab';
+  renderScrollLogoTransform();
+  scrollLogoInitialized = true;
+  return true;
+}
+
+function observeScrollLogoInsertion() {
+  if (scrollLogoInitialized) return;
+  const observer = new MutationObserver(() => {
+    if (initScrollLogo()) {
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
+initScrollLogo();
+observeScrollLogoInsertion();
 
 function stopInitialLogoSpin(resetRotation = false) {
   if (introSpinRafId) {
@@ -125,21 +179,6 @@ function handleSecretLogoButtonPress(buttonNumber) {
   runLogoFailureShake();
 }
 
-scrollLogoArea.addEventListener('mousedown', (e) => {
-  if (isIntroSpinning) {
-    stopInitialLogoSpin(true);
-  }
-  if (programScrollRaf) {
-    cancelAnimationFrame(programScrollRaf);
-    programScrollRaf = null;
-  }
-
-  isRotating = true;
-  lastY = e.clientY;
-  lastX = e.clientX;
-  scrollLogoArea.style.cursor = 'grabbing';
-});
-
 document.addEventListener('mousemove', (e) => {
   if (!isRotating) return;
   
@@ -162,7 +201,7 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseup', () => {
   if (isRotating) {
     isRotating = false;
-    scrollLogoArea.style.cursor = 'grab';
+    if (scrollLogoArea) scrollLogoArea.style.cursor = 'grab';
 
     // Start inertia momentum
     if (Math.abs(logoVelocity) > 0.1) {
@@ -180,11 +219,11 @@ document.addEventListener('mouseup', () => {
 function snapLogoToNearest() {
   const snapAngle = 22.5;
   const snappedRotation = Math.round(currentRotation / snapAngle) * snapAngle;
-  scrollLogoArea.style.transition = 'transform 0.3s ease-in-out';
+  if (scrollLogoArea) scrollLogoArea.style.transition = 'transform 0.3s ease-in-out';
   currentRotation = snappedRotation;
   renderScrollLogoTransform();
   setTimeout(() => {
-    scrollLogoArea.style.transition = 'none';
+    if (scrollLogoArea) scrollLogoArea.style.transition = 'none';
   }, 300);
 }
 
@@ -209,22 +248,6 @@ function runLogoMomentum() {
 
   requestAnimationFrame(runLogoMomentum);
 }
-
-scrollLogoArea.style.cursor = 'grab';
-renderScrollLogoTransform();
-
-document.querySelectorAll('[id^="special-button"]').forEach(button => {
-  button.addEventListener('mousedown', (event) => {
-    event.stopPropagation();
-  });
-
-  button.addEventListener('click', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    const buttonNumber = parseInt(button.id.replace('special-button', ''), 10);
-    handleSecretLogoButtonPress(buttonNumber);
-  });
-});
 
 // Make mouse wheel scroll horizontally over graph area with momentum
 let wheelVelocity = 0;
@@ -437,22 +460,105 @@ document.addEventListener("DOMContentLoaded", () => {
   const containers = document.querySelectorAll(".video-container");
 
   containers.forEach(container => {
-    const video = container.querySelector(".node-video");
-    const overlay = container.querySelector(".play-overlay");
+    const media = container.querySelector(".node-video");
+    const overlay = container.querySelector('.play-overlay');
 
-    // Start paused
-    video.pause();
-    overlay.style.opacity = "1";
+    if (!media) return;
 
-    container.addEventListener("mouseenter", () => {
-      overlay.style.opacity = "0";
-      video.play();
-    });
+    // If it's a <video>, set up autoplay on hover and reset on leave
+    if (media.tagName && media.tagName.toLowerCase() === 'video') {
+      try { media.pause(); } catch (e) {}
+      if (overlay) overlay.style.opacity = '1';
 
-    container.addEventListener("mouseleave", () => {
-      video.pause();
-		video.currentTime = '0';
-      overlay.style.opacity = "1";
+      container.addEventListener('mouseenter', () => {
+        if (overlay) overlay.style.opacity = '0';
+        media.play().catch(() => {});
+      });
+
+      container.addEventListener('mouseleave', () => {
+        try { media.pause(); } catch (e) {}
+        try { media.currentTime = 0; } catch (e) {}
+        if (overlay) overlay.style.opacity = '1';
+      });
+    } else if (media.tagName && media.tagName.toLowerCase() === 'img') {
+      // For images, add a subtle hover scale so it feels interactive
+      container.addEventListener('mouseenter', () => { media.style.transform = 'scale(1.03)'; });
+      container.addEventListener('mouseleave', () => { media.style.transform = ''; });
+    }
+  });
+
+  const previewLinks = document.querySelectorAll('a.info-preview');
+  let activeFullscreenClone = null;
+  let activePreviewOriginal = null;
+
+  const closeFullscreenPreview = () => {
+    if (!activeFullscreenClone || !activePreviewOriginal) return;
+
+    const targetRect = activePreviewOriginal.getBoundingClientRect();
+    activeFullscreenClone.classList.remove('info-preview-clone--expanded');
+    activeFullscreenClone.style.top = `${targetRect.top}px`;
+    activeFullscreenClone.style.left = `${targetRect.left}px`;
+    activeFullscreenClone.style.width = `${targetRect.width}px`;
+    activeFullscreenClone.style.height = `${targetRect.height}px`;
+
+    activeFullscreenClone.addEventListener('transitionend', () => {
+      if (activeFullscreenClone) {
+        activeFullscreenClone.remove();
+        activeFullscreenClone = null;
+        activePreviewOriginal = null;
+        document.body.style.overflow = '';
+      }
+    }, { once: true });
+  };
+
+  previewLinks.forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (activeFullscreenClone) {
+        closeFullscreenPreview();
+        return;
+      }
+
+      activePreviewOriginal = link;
+      const rect = link.getBoundingClientRect();
+      const clone = link.cloneNode(true);
+      clone.classList.add('info-preview-clone');
+      clone.style.top = `${rect.top}px`;
+      clone.style.left = `${rect.left}px`;
+      clone.style.width = `${rect.width}px`;
+      clone.style.height = `${rect.height}px`;
+      clone.style.margin = '0';
+      clone.style.transform = 'none';
+      clone.style.pointerEvents = 'auto';
+      clone.style.transition = 'all 300ms ease';
+      document.body.appendChild(clone);
+      document.body.style.overflow = 'hidden';
+
+      const graphRect = graphArea.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        clone.classList.add('info-preview-clone--expanded');
+        clone.style.top = `${graphRect.top}px`;
+        clone.style.left = `${graphRect.left}px`;
+        clone.style.width = `${graphRect.width}px`;
+        clone.style.height = `${graphRect.height}px`;
+        clone.style.borderRadius = '0';
+      });
+
+      const media = clone.querySelector('video');
+      if (media) {
+        try {
+          media.currentTime = 0;
+        } catch (err) {}
+        media.play().catch(() => {});
+      }
+
+      setTimeout(() => {
+        document.addEventListener('click', closeFullscreenPreview, { once: true });
+      }, 0);
+
+      activeFullscreenClone = clone;
     });
   });
 });
@@ -696,22 +802,38 @@ function scheduleDraw() {
   }
 }
 
-// Initial draw and resize after layout is complete
-window.addEventListener("load", () => {
+function clampGraphAreaScrollLeft() {
+  if (!graphArea) return;
+  const maxScrollLeft = Math.max(0, graphArea.scrollWidth - graphArea.clientWidth);
+  graphArea.scrollLeft = Math.min(graphArea.scrollLeft, maxScrollLeft);
+  graphArea.scrollLeft = Math.max(0, graphArea.scrollLeft);
+  lastScrollLeft = graphArea.scrollLeft;
+}
+
+function refreshGraphLayout() {
   resizeCanvasToGraphArea();
   updateAnchorElements();
-  draw();
+  clampGraphAreaScrollLeft();
+  scheduleDraw();
   updateScrollNotifyOnScroll();
+}
+
+// Initial draw and resize after layout is complete
+window.addEventListener("load", () => {
+  refreshGraphLayout();
   runInitialLogoSpin();
 });
 
 // Handle resize
 window.addEventListener("resize", () => {
-  resizeCanvasToGraphArea();
-  updateAnchorElements();
-  scheduleDraw();
-  updateScrollNotifyOnScroll();
+  refreshGraphLayout();
 });
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', () => {
+    refreshGraphLayout();
+  });
+}
 
 // Redraw on graph-area scroll (not window scroll)
 graphArea.addEventListener("scroll", () => {
@@ -736,12 +858,12 @@ document.querySelectorAll('.node-visible').forEach(btn => {
   const openSrc   = 'assets/Node-Visible-Open.png';
   const hiddenSrc = 'assets/Node-Visible-Hidden.png';
   const header = node.querySelector('.node-header');
-  let savedHeaderBg = null;
+  // Capture the original header background once (inline or computed)
+  const originalHeaderBg = header ? (header.style.backgroundColor || getComputedStyle(header).backgroundColor) : '';
 
   function fadeOut() {
     // Save and clear any inline background-color on the header so CSS can hide it
     if (header) {
-      savedHeaderBg = header.style.backgroundColor || null;
       header.style.backgroundColor = 'transparent';
     }
     node.classList.add('node--faded');
@@ -753,8 +875,7 @@ document.querySelectorAll('.node-visible').forEach(btn => {
     node.classList.remove('node--faded');
     // Restore the saved inline background-color
     if (header) {
-      header.style.backgroundColor = savedHeaderBg || '';
-      savedHeaderBg = null;
+      header.style.backgroundColor = originalHeaderBg || '';
     }
     img.src = openSrc;
     draw();
@@ -768,8 +889,9 @@ document.querySelectorAll('.node-visible').forEach(btn => {
     }
   };
 
+  // Only preview-hide on hover when not pinned
   btn.addEventListener('mouseenter', () => {
-    fadeOut();
+    if (!isPinned) fadeOut();
   });
 
   btn.addEventListener('mouseleave', () => {

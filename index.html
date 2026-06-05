@@ -9,128 +9,38 @@
 </head>
 <script>
 
-  //	function setupSidebar() {
-  // var coll = document.getElementsByClassName("collapsible");
-  // for (var i = 0; i < coll.length; i++) {
-  //   coll[i].addEventListener("click", function() {
-  //     this.classList.toggle("active");
-  //     var content = this.nextElementSibling;
-  //     if (content.style.maxHeight){
-  //       content.style.maxHeight = null;
-  //       this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
-  //     } else {
-  //       content.style.maxHeight = content.scrollHeight + "px";
-  //       this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
-  //     }
-  //   });
-  // }
 
 
   // Wait for DOM to be ready
-  //document.addEventListener("DOMContentLoaded", function() {
-  //  // Fetch Sidebar and then setup event listeners
-  //  fetch('sidebar/index.html')
-  //    .then(res => res.text())
-  //    .then(html => {
-  //      document.getElementById('Sidebar').innerHTML = html;
-  //      setupSidebar(); // <-- Call this after sidebar is loaded
-  //    });
-  //
-  //  // Fetch TopBar (use correct case!)
-  //  fetch('topbar/index.html')
-  //    .then(res => res.text())
-  //    .then(html => {
-  //      document.getElementById('Topbar').innerHTML = html;
-  //    });
-  //});
-  //	
+  document.addEventListener("DOMContentLoaded", function() {
+   // Fetch Sidebar and then setup event listeners
+   fetch('sidebar/fragment.html')
+     .then(res => res.text())
+     .then(html => {
+       document.getElementById('Sidebar').innerHTML = html;
+       setupSidebar(); // <-- Call this after sidebar is loaded
+     });
+  
+   // Fetch TopBar (use correct case!)
+   fetch('topbar/index.html')
+     .then(res => res.text())
+     .then(html => {
+       document.getElementById('Topbar').innerHTML = html;
+     });
+  });
+  	
 </script>
 
 <body>
-  <!-- <img id="background-image" src="..assets/Reference.png" alt="Background Image" draggable="false" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 999; pointer-events: none;"></img> -->
-  <!--
-  <div id="model-container" style="position: fixed; inset: 0; z-index: 100;">
-    <model-viewer>
 
 
-    </model-viewer>
-  </div>
--->
-  <div class="scroll-logo-area">
-    <div class="scroll-logo">
-      <button class="scroll-logo" id="special-button1"></button>
-      <button class="scroll-logo" id="special-button2"></button>
-      <button class="scroll-logo" id="special-button3"></button>
-      <button class="scroll-logo" id="special-button4"></button>
-      <button class="scroll-logo" id="special-button5"></button>
-      <button class="scroll-logo" id="special-button6"></button>
-      <button class="scroll-logo" id="special-button7"></button>
-      <button class="scroll-logo" id="special-button8"></button>
-      <img src="assets/Mecha Andrew Logo.png" alt="Mecha Andrew Logo" draggable="false">
-    </div>
-  </div>
+    <!-- SIDEBAR -->
+    <div id="Sidebar" class="sidebar"></div>
+    <div class="content">
 
+    <!-- TOPBAR INSERT HERE -->
+    <div id="Topbar"></div>
 
-
-  <!-- SIDEBAR -->
-  <div id="Sidebar" class="sidebar">
-    <div class="socials_div">
-      <div class="social_icon interact_icon">
-        <a href="https://www.linkedin.com/in/andrew-dresel-kurtz" target="_blank"><img src="assets/Icon LinkedIn HS.png"
-            alt="LinkedIn"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://www.instagram.com/mecha_media/" target="_blank"><img src="assets/Icon Instagram HS.png"
-            alt="Instagram"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://www.youtube.com/@mecha_media" target="_blank"><img src="assets/Icon Youtube HS.png"
-            alt="YouTube"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://x.com/MechaAndrew_" target="_blank"><img src="assets/Icon XTwitter HS.png" alt="X/Twitter"></a>
-      </div> <!--End Icon-->
-    </div> <!--End Social divider-->
-  </div> <!--End Sidebar-->
-
-  <div class="content">
-
-    <!-- TOPBAR -->
-    <div id="Topbar">
-      <div class="topbar" style="-webkit-user-select:none;user-select:none;" unselectable="on"
-        onselectstart="return false;" onmousedown="return false;">
-
-        <!-- HOME -->
-        <div class="tab tab-home"><a href="./index">
-            <img src="assets/Icon Home.png" alt="" /> Home
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- PROJECTS -->
-        <div class="tab tab-projects"><a href="./projects">
-            <img src="assets/Icon Projects.png" alt="" /> Projects
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- ABOUT -->
-        <div class="tab tab-about"><a href="./about">
-            <img src="assets/Icon About.png" alt="" /> About
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- CONTACT -->
-        <div class="tab tab-contact"><a href="./contact" style=" text-decoration: none; display: block;">
-            <img src="assets/Icon Contact.png" alt="" /> Contact
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-      </div>
-
-    </div>
-    <!-- END TOPBAR -->
 
     <div id="scroll-notify" class="scroll-notify" aria-live="polite"></div>
     <div class="graph-area">
@@ -140,7 +50,7 @@
       <!-- --------------------------------------------------------------------------------------------------------- -->
       <!-- Start Node Group (Welcome) -->
       <div class="node-group" id="home-section">
-        <video class="node-video-background" loop muted src="assets/PersistancePortfolioClip.mp4"></video>
+        <!-- <video class="node-video-background" loop muted src="assets/PersistancePortfolioClip.mp4"></video> -->
 
         <!--Start Node Home/Welcome-->
         <div class="node" id="node-jump1" style="width: 80pc;">
@@ -187,8 +97,8 @@
                   <div class="node-topic-keyword topic-ue5">UE5</div>
                   <div class="node-topic-keyword topic-teamwork">Teamwork</div>
                 </div> <!--End Node Topics-->
-                <p>Currently collaborating as lead programmer on an upcoming Indie Project <u>BARGUZIN</u>
-                  aswell as tutoring UE5 to students learning game design
+                <p>Currently collaborating as lead programmer on an upcoming Indie Project <u>BARGUZIN</u>.
+                  Aswell as tutoring UE5 to students learning game design
                 </p>
 
               </div> <!--End Node Info-->
@@ -233,7 +143,7 @@
 
 
           </div> <!--End Node Body-->
-        </div> End Node
+        </div> <!--  End Node -->
       </div> <!--End Node group-->
       <!-- --------------------------------------------------------------------------------------------------------- -->
 
@@ -241,15 +151,15 @@
       <!-- --------------------------------------------------------------------------------------------------------- -->
       <!-- Start Node Group (Recent Work) -->
       <div class="node-group" id="recentWork-section">
-        <video class="node-video-background" loop muted src="assets/PersistancePortfolioClip.mp4"></video>
+        <video class="node-video-background" loop muted src="assets/BARGUZINPortfolioClip.mp4"></video>
 
         
 
         <!--Start Node Home/Welcome-->
-        <div class="node" id="node-jump2" style="width: 65pc;">
+        <div class="node" id="node-jump2" style="width: 75pc;">
 
           <div class="node-header" style="background-color: #35bfff">
-            <p>Andrew Dresel-Kurtz | Game Design</p>
+            <p>Recent Project | B-A-R-G-U-Z-I-N</p>
             <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false"></div>
           </div>
           <!-- Start Node Body (The gray are that stores all the info) -->
@@ -269,46 +179,40 @@
 
                 <!--Node Topics-->
                 <div class="node-topics">
-                  <div class="node-topic-keyword" style="background-color: #ab62b8;">Gamedev</div>
-                  <div class="node-topic-keyword" style="background-color: #96a7ae;">UE5</div>
+                  <div class="node-topic-keyword topic-gamedev">Gamedev</div>
+                  <div class="node-topic-keyword topic-ue5">UE5</div>
+                  <div class="node-topic-keyword topic-teamwork">Teamwork</div>
                 </div> <!--End Node Topics-->
-                <p>I’m a hybrid game designer and programmer specializing in Unreal Engine 5</p>
+                <p>As lead programmer, I am working on this Resident Evil inspired Indie Project</p>
 
               </div> <!--End Node Info-->
 
-              <div class="node-info">
+                            <div class="node-info">
 
                 <!--Node Topics-->
                 <div class="node-topics">
-                  <div class="node-topic-keyword" style="background-color: #ab62b8;">Gamedev</div>
-                  <div class="node-topic-keyword" style="background-color: #96a7ae;">UE5</div>
+                  <div class="node-topic-keyword topic-gamedev">Gamedev</div>
+                  <div class="node-topic-keyword topic-ue5">UE5</div>
                 </div> <!--End Node Topics-->
-                <p>I’m a hybrid game designer and programmer specializing in Unreal Engine 5</p>
+                <p>I develop the core gameplay mechanics, NPC AI, and tools to expedite development</p>
 
               </div> <!--End Node Info-->
 
-              <div class="node-info">
 
-                <!--Node Topics-->
-                <div class="node-topics">
-                  <div class="node-topic-keyword" style="background-color: #ab62b8;">Gamedev</div>
-                  <div class="node-topic-keyword" style="background-color: #96a7ae;">UE5</div>
-                </div> <!--End Node Topics-->
-                <p>I’m a hybrid game designer and programmer specializing in Unreal Engine 5</p>
 
-              </div> <!--End Node Info-->
+
 
             </div><!--End Node Contents-->
 
-            <div class="node-contents" href="#" style="border: 2px solid #ccc; border-radius: 8px;">
+
+            <div class="node-contents" href="#" style="border: 2px solid #ccc; border-radius: 8px; ">
 
               <!--Start Node Info (This info is a vertical section to list details)-->
-              <div class="node-info">
-                <div class="video-container">
-                  <div class="node-info-details">Click for more info</div>
-                  <img class="node-video" muted loop playsinline src="assets/IRL Photo.png"></img>
-                </div>
+              <div class="node-info node-info--centered">
+                <a href="./barguzin/index.html" class="video-container" style=" display: block;">
+                  <video class="node-video" muted loop playsinline src="assets/BARGUZINPortfolioClip.mp4"></video>
                 <div class="node-info-details">Click for more info</div>
+                </a>
               </div> <!--End Node Info-->
             </div><!--End Node Contents-->
 

@@ -1,62 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Mecha Andrew | Game Designer</title>
-<link href="../StyleSheet.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Sidebar | Mecha Andrew</title>
+      <link href="../StyleSheet.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+      <div class="scroll-logo-area">
+        <div class="scroll-logo">
+          <button class="scroll-logo" id="special-button1"></button>
+          <button class="scroll-logo" id="special-button2"></button>
+          <button class="scroll-logo" id="special-button3"></button>
+          <button class="scroll-logo" id="special-button4"></button>
+          <button class="scroll-logo" id="special-button5"></button>
+          <button class="scroll-logo" id="special-button6"></button>
+          <button class="scroll-logo" id="special-button7"></button>
+          <button class="scroll-logo" id="special-button8"></button>
+          <img src="assets/Mecha Andrew Logo.png" alt="Mecha Andrew Logo" draggable="false">
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div id="Sidebar" class="sidebar">
+        <div class="socials_div">
+          <div class="social_icon interact_icon">
+            <a href="https://www.linkedin.com/in/andrew-dresel-kurtz" target="_blank"><img src="assets/Icon LinkedIn HS.png"
+                alt="LinkedIn"></a>
+          </div> <!--End Icon-->
+          <div class="social_icon interact_icon">
+            <a href="https://www.instagram.com/mecha_media/" target="_blank"><img src="assets/Icon Instagram HS.png"
+                alt="Instagram"></a>
+          </div> <!--End Icon-->
+          <div class="social_icon interact_icon">
+            <a href="https://www.youtube.com/@mecha_media" target="_blank"><img src="assets/Icon Youtube HS.png"
+                alt="YouTube"></a>
+          </div> <!--End Icon-->
+          <div class="social_icon interact_icon">
+            <a href="https://x.com/MechaAndrew_" target="_blank"><img src="assets/Icon XTwitter HS.png" alt="X/Twitter"></a>
+          </div> <!--End Icon-->
+        </div> <!--End Social divider-->
+      </div> <!--End Sidebar-->
+
+    </body>
+    </html>
 
 
-<!-- Sidebar -->
-<div class="sidebar"> 
-  <!-- Logo -->
-  <h1>
-    <div class="icon"><a href="/Portfolio/"> <img class="icon" src="/Portfolio/img/Mecha_Andrew_Logo.png" width="502" height="502" alt=""/></a> </div>
-  </h1>
-<!--Post School Projects-->
-	<button onClick="dropDown()" type="button" class="collapsible">▶ PUBLISHED GAMES</button>
-  <div class="project-list">
-	  
-    <p class="project-item construction-bg"><a href="/Portfolio/livewire" style=" color: white;text-decoration: none; display: block;">↳ <strong>Live Wire</strong></a></p>
-	  
-    <p class="project-item construction-bg"><a href="/Portfolio/codeduck" style=" color: white;text-decoration: none; display: block;">↳ <strong>Mission Granted: Code Duck </strong></a></p>
-	  
+    <div class="scroll-logo-area">
+    <div class="scroll-logo">
+      <button class="scroll-logo" id="special-button1"></button>
+      <button class="scroll-logo" id="special-button2"></button>
+      <button class="scroll-logo" id="special-button3"></button>
+      <button class="scroll-logo" id="special-button4"></button>
+      <button class="scroll-logo" id="special-button5"></button>
+      <button class="scroll-logo" id="special-button6"></button>
+      <button class="scroll-logo" id="special-button7"></button>
+      <button class="scroll-logo" id="special-button8"></button>
+      <img src="assets/Mecha Andrew Logo.png" alt="Mecha Andrew Logo" draggable="false">
+    </div>
   </div>
-<!--End Post School Projects -->
-	
-  <button onClick="dropDown()" type="button" class="collapsible">▶ GAME DEMOS</button>
-  <div class="project-list">
-
-	  <p class="project-item construction-bg"><a href="/Portfolio/lemondale" style=" color: white;text-decoration: none; display: block;">↳ <strong>Lemondale</strong></a></p>
-	  
-	  <p class="project-item construction-bg"><a href="/Portfolio/doldrums" style=" color: white;text-decoration: none; display: block;">↳ <strong>Doldrums</strong></a></p>
-	  
-    <p class="project-item"><a href="/Portfolio/intergalacticrecoveryservice" style=" color: white;text-decoration: none; display: block;">↳ <strong>Intergalactic Recovery Serivce</strong></a></p>
-	  
-	  <p class="project-item"><a href="/Portfolio/shipit" style=" color: white;text-decoration: none; display: block;">↳ <strong>Ship It</strong></a></p>
-	  
-	  <p class="project-item"><a href="/Portfolio/persistence" style=" color: white;text-decoration: none; display: block;">↳ <strong>Persistence</strong></a></p>
-	  
-	  <p class="project-item construction-bg"><a href="/Portfolio/putonyourprettyface" style=" color: white;text-decoration: none; display: block;">↳ <strong>Put on Your Pretty Face</strong></a></p>
-	  
-	  <p class="project-item construction-bg"><a href="/Portfolio/howdandy" style=" color: white;text-decoration: none; display: block;">↳ <strong>How Dandy</strong></a></p>
-	
-	  <p class="project-item construction-bg"><a href="/Portfolio/randomramen" style=" color: white;text-decoration: none; display: block;">↳ <strong>Random Ramen</strong></a></p>
-	
-  </div>
-<!--End Projects-->
-	<button onClick="dropDown()" type="button" class="collapsible">▶ COMMISSIONS</button>
-  <div class="project-list">
-	  
-    <p class="project-item construction-bg"><a href="/Portfolio/wheeloffaith" style=" color: white;text-decoration: none; display: block;">↳ <strong>Wheel of Faith UI Artist</strong></a></p>
-	  
-	<p class="project-item construction-bg"><a href="/Portfolio/feysmp" style=" color: white;text-decoration: none; display: block;">↳ <strong>Fey SMP Coder</strong></a></p>
-  </div>
-<!--End Commissions-->
-	
-</div>
-	
-	</body>
-	</html>
-<script type="text/javascript" src="/Portfolio/Script.js"></script>
+  <!-- SIDEBAR INNER CONTENT (injected into #Sidebar) -->
+    <div class="socials_div">
+      <div class="social_icon interact_icon">
+        <a href="https://www.linkedin.com/in/andrew-dresel-kurtz" target="_blank"><img src="assets/Icon LinkedIn HS.png"
+            alt="LinkedIn"></a>
+      </div> <!--End Icon-->
+      <div class="social_icon interact_icon">
+        <a href="https://www.instagram.com/mecha_media/" target="_blank"><img src="assets/Icon Instagram HS.png"
+            alt="Instagram"></a>
+      </div> <!--End Icon-->
+      <div class="social_icon interact_icon">
+        <a href="https://www.youtube.com/@mecha_media" target="_blank"><img src="assets/Icon Youtube HS.png"
+            alt="YouTube"></a>
+      </div> <!--End Icon-->
+      <div class="social_icon interact_icon">
+        <a href="https://x.com/MechaAndrew_" target="_blank"><img src="assets/Icon XTwitter HS.png" alt="X/Twitter"></a>
+      </div> <!--End Icon-->
+    </div> <!--End Social divider-->
