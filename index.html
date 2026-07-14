@@ -25,6 +25,10 @@
     fetch('topbar/index.html')
       .then(res => res.text())
       .then(html => {
+        html = html
+          .replace(/href="\.\.\//g, 'href="./')
+          .replace(/href="assets\//g, 'href="assets/')
+          .replace(/src="\.\.\//g, 'src="./');
         document.getElementById('Topbar').innerHTML = html;
       });
   });

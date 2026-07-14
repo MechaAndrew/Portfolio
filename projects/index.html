@@ -9,133 +9,36 @@
 </head>
 <script>
 
-  //	function setupSidebar() {
-  // var coll = document.getElementsByClassName("collapsible");
-  // for (var i = 0; i < coll.length; i++) {
-  //   coll[i].addEventListener("click", function() {
-  //     this.classList.toggle("active");
-  //     var content = this.nextElementSibling;
-  //     if (content.style.maxHeight){
-  //       content.style.maxHeight = null;
-  //       this.innerHTML = this.innerHTML.replace("▼", "&#11208;");
-  //     } else {
-  //       content.style.maxHeight = content.scrollHeight + "px";
-  //       this.innerHTML = this.innerHTML.replace("&#11208;", "▼");
-  //     }
-  //   });
-  // }
 
 
   // Wait for DOM to be ready
-  //document.addEventListener("DOMContentLoaded", function() {
-  //  // Fetch Sidebar and then setup event listeners
-  //  fetch('sidebar/index.html')
-  //    .then(res => res.text())
-  //    .then(html => {
-  //      document.getElementById('Sidebar').innerHTML = html;
-  //      setupSidebar(); // <-- Call this after sidebar is loaded
-  //    });
-  //
-  //  // Fetch TopBar (use correct case!)
-  //  fetch('topbar/index.html')
-  //    .then(res => res.text())
-  //    .then(html => {
-  //      document.getElementById('Topbar').innerHTML = html;
-  //    });
-  //});
-  //	
+  document.addEventListener("DOMContentLoaded", function () {
+    // Fetch Sidebar and then setup event listeners
+    fetch('../sidebar/fragment.html')
+      .then(res => res.text())
+      .then(html => {
+        html = html.replace(/(src|href)="assets\//g, '$1="../assets/');
+        document.getElementById('Sidebar').innerHTML = html;
+        setupSidebar(); // <-- Call this after sidebar is loaded
+      });
+
+    // Fetch TopBar (use correct case!)
+    fetch('../topbar/index.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('Topbar').innerHTML = html;
+      });
+  });
+
 </script>
 
 <body>
-  <!-- <img id="background-image" src="..assets/Reference.png" alt="Background Image" draggable="false" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; z-index: 999; pointer-events: none;"></img> -->
-  <!--
-  <div id="model-container" style="position: fixed; inset: 0; z-index: 100;">
-    <model-viewer>
-
-
-    </model-viewer>
-  </div>
--->
-  <div class="scroll-logo-area">
-    <div class="scroll-logo">
-      <button class="scroll-logo" id="special-button1"></button>
-      <button class="scroll-logo" id="special-button2"></button>
-      <button class="scroll-logo" id="special-button3"></button>
-      <button class="scroll-logo" id="special-button4"></button>
-      <button class="scroll-logo" id="special-button5"></button>
-      <button class="scroll-logo" id="special-button6"></button>
-      <button class="scroll-logo" id="special-button7"></button>
-      <button class="scroll-logo" id="special-button8"></button>
-      <img src="../assets/Mecha Andrew Logo.png" alt="Mecha Andrew Logo" draggable="false">
-    </div>
-  </div>
-
 
 
   <!-- SIDEBAR -->
-  <div id="Sidebar" class="sidebar">
-    <div class="socials_div">
-      <div class="social_icon interact_icon">
-        <a href="https://www.linkedin.com/in/andrew-dresel-kurtz" target="_blank"><img src="../assets/Icon LinkedIn HS.png"
-            alt="LinkedIn"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://www.instagram.com/mecha_media/" target="_blank"><img src="../assets/Icon Instagram HS.png"
-            alt="Instagram"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://www.youtube.com/@mecha_media" target="_blank"><img src="../assets/Icon Youtube HS.png"
-            alt="YouTube"></a>
-      </div> <!--End Icon-->
-      <div class="social_icon interact_icon">
-        <a href="https://x.com/MechaAndrew_" target="_blank"><img src="../assets/Icon XTwitter HS.png" alt="X/Twitter"></a>
-      </div> <!--End Icon-->
-    </div> <!--End Social divider-->
-  </div> <!--End Sidebar-->
-
+  <div id="Sidebar" class="sidebar"></div>
   <div class="content">
-
-    <!-- TOPBAR -->
-    <div id="Topbar">
-      <div class="topbar" style="-webkit-user-select:none;user-select:none;" unselectable="on"
-        onselectstart="return false;" onmousedown="return false;">
-
-        <!-- HOME -->
-        <div class="tab tab-home"><a href="../">
-            <img src="../assets/Icon Home.png" alt="" /> Home
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- PROJECTS -->
-        <div class="tab tab-projects"><a href="../projects/">
-            <img src="../assets/Icon Projects.png" alt="" /> Projects
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- ABOUT -->
-        <div class="tab tab-about"><a href="../about/">
-            <img src="../assets/Icon About.png" alt="" /> About
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-
-        <!-- CONTACT -->
-        <div class="tab tab-contact"><a href="../contact/" style=" text-decoration: none; display: block;">
-            <img src="../assets/Icon Contact.png" alt="" /> Contact
-          </a></div>
-
-        <div class="tab tab_divider"><b>|</b></div>
-                <!-- RESUME -->
-        <div class="tab tab-contact"><a href="../assets/Andrew Dresel-Kurtz Game Design Resume.pdf" download="Andrew Dresel-Kurtz Game Design Resume.pdf" style=" text-decoration: none; display: block;">
-            <img src="../assets/Icon Resume.png" alt="" /> Resume
-          </a></div>
-      </div>
-
-    </div>
-    <!-- END TOPBAR -->
-
+    <div id="Topbar"></div>
     <div id="scroll-notify" class="scroll-notify" aria-live="polite"></div>
     <div class="graph-area">
       <!-- Graph-Area + Canvas controls the diagonal lines and the rest of the nodes-->
@@ -413,12 +316,12 @@
       <!-- --------------------------------------------------------------------------------------------------------- -->
 
 
-      
-
+    </div> <!-- end graph-area -->
+  </div> <!-- end content -->
 
 </body>
 
 </html>
 
 <script type="text/javascript" src="../Script.js"></script>
-<!-- <script type="module" src="ModelModule.js"></script>-->
+<!-- <script type="module" src="ModelModule.js"></script-->
