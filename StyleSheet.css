@@ -774,12 +774,42 @@ align-self: center;
     background-color: #8b4897;
 }
 
+.topic-info {
+    background-color: #972960;
+}
+
 .topic-ue5 {
     background-color: #6b7479;
 }
 
 .topic-teamwork {
     background-color: #33ac2f;
+}
+
+.topic-AI {
+    background-color: #ac2f59;
+}
+
+.topic-blueprint {
+    background-color: #2fb6ce;
+}
+
+.topic-animation {
+    background-color: #c7af2a;
+}
+
+.topic-UI {
+    background-color: #802ac7;
+}
+
+.topic-blender {
+    background-color: #f79335;
+}
+.topic-adobe {
+    background-color: #da1f1f;
+}
+.topic-photoshop {
+    background-color: #35baf7;
 }
 
 .node-info p {
@@ -1194,8 +1224,8 @@ transform: scale(1.1);
 
 #scroll-notify {
     position: fixed;
-    top: 29%;
-    left: 18%;
+    top: 12%;
+    left: 50%;
     transform: scale(2);
     opacity: 0;
     pointer-events: none;
@@ -1217,5 +1247,37 @@ transform: scale(1.1);
 
 #scroll-notify.visible {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: translateY(50%) scale(1.5);
+}
+
+
+/* Final overrides: ensure multi-node groups expand to fit children
+   and that individual nodes keep their natural width/height. */
+.node-group:has(> .node + .node) {
+    /* allow the group to size to its content instead of forcing 100vw
+       use max-content so the group's min-width expands to fit children
+       and contributes to the parent's scrollWidth */
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: max-content;
+    max-width: none;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 24px;
+    /* keep overflow hidden so children affect scrollWidth reliably */
+    overflow: hidden;
+}
+
+.node-group:has(> .node + .node) > .node {
+    /* let each node keep its own width and not be forced to the single-column sizing */
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 320px;
+    max-width: none;
+    min-height: 420px;
+    height: auto;
+    margin: 0;
 }

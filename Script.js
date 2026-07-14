@@ -818,9 +818,22 @@ function refreshGraphLayout() {
   updateScrollNotifyOnScroll();
 }
 
+function resetGraphScroll() {
+  if (!graphArea) return;
+  graphArea.scrollLeft = 0;
+  graphArea.scrollTop = 0;
+  lastScrollLeft = 0;
+  currentRotation = 0;
+  renderScrollLogoTransform();
+}
+
 // Initial draw and resize after layout is complete
 window.addEventListener("load", () => {
   refreshGraphLayout();
+  requestAnimationFrame(() => {
+    resetGraphScroll();
+    refreshGraphLayout();
+  });
   runInitialLogoSpin();
 });
 

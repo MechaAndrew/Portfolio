@@ -12,31 +12,31 @@
 
 
   // Wait for DOM to be ready
-  document.addEventListener("DOMContentLoaded", function() {
-   // Fetch Sidebar and then setup event listeners
-   fetch('sidebar/fragment.html')
-     .then(res => res.text())
-     .then(html => {
-       document.getElementById('Sidebar').innerHTML = html;
-       setupSidebar(); // <-- Call this after sidebar is loaded
-     });
-  
-   // Fetch TopBar (use correct case!)
-   fetch('topbar/index.html')
-     .then(res => res.text())
-     .then(html => {
-       document.getElementById('Topbar').innerHTML = html;
-     });
+  document.addEventListener("DOMContentLoaded", function () {
+    // Fetch Sidebar and then setup event listeners
+    fetch('sidebar/fragment.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('Sidebar').innerHTML = html;
+        setupSidebar(); // <-- Call this after sidebar is loaded
+      });
+
+    // Fetch TopBar (use correct case!)
+    fetch('topbar/index.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('Topbar').innerHTML = html;
+      });
   });
-  	
+
 </script>
 
 <body>
 
 
-    <!-- SIDEBAR -->
-    <div id="Sidebar" class="sidebar"></div>
-    <div class="content">
+  <!-- SIDEBAR -->
+  <div id="Sidebar" class="sidebar"></div>
+  <div class="content">
 
     <!-- TOPBAR INSERT HERE -->
     <div id="Topbar"></div>
@@ -57,7 +57,8 @@
 
           <div class="node-header" style="background-color: #ff3535">
             <p>Andrew Dresel-Kurtz | Game Design</p>
-            <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false"></div>
+            <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false">
+            </div>
           </div>
           <!-- Start Node Body (The gray are that stores all the info) -->
           <div class="node-body">
@@ -109,7 +110,8 @@
                 <div class="node-topics">
                   <div class="node-topic-keyword" style="background-color: rgba(0, 0, 0, 0);"></div>
                 </div> <!--End Node Topics-->
-                <p>Enjoy exploring the site (and its easter eggs). Feel free to reach out if you want to connect or collaborate on a project!
+                <p>Enjoy exploring the site (and its easter eggs). Feel free to reach out if you want to connect or
+                  collaborate on a project!
                 </p>
 
               </div> <!--End Node Info-->
@@ -153,14 +155,15 @@
       <div class="node-group" id="recentWork-section">
         <video class="node-video-background" loop muted src="assets/BARGUZINPortfolioClip.mp4"></video>
 
-        
+
 
         <!--Start Node Home/Welcome-->
         <div class="node" id="node-jump2" style="width: 75pc;">
 
           <div class="node-header" style="background-color: #35bfff">
             <p>Recent Project | B-A-R-G-U-Z-I-N</p>
-            <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false"></div>
+            <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false">
+            </div>
           </div>
           <!-- Start Node Body (The gray are that stores all the info) -->
           <div class="node-body">
@@ -181,22 +184,28 @@
                 <div class="node-topics">
                   <div class="node-topic-keyword topic-gamedev">Gamedev</div>
                   <div class="node-topic-keyword topic-ue5">UE5</div>
-                  <div class="node-topic-keyword topic-teamwork">Teamwork</div>
+                  <div class="node-topic-keyword topic-info">Info</div>
                 </div> <!--End Node Topics-->
-                <p>As lead programmer, I am working on this Resident Evil inspired Indie Project</p>
+                <p>As lead programmer, I am working on this Resident Evil inspired indie survival game being developed
+                  with Unreal Engine 5.</p>
 
               </div> <!--End Node Info-->
 
-                            <div class="node-info">
+              <div class="node-info">
 
                 <!--Node Topics-->
                 <div class="node-topics">
                   <div class="node-topic-keyword topic-gamedev">Gamedev</div>
-                  <div class="node-topic-keyword topic-ue5">UE5</div>
+                  <div class="node-topic-keyword topic-ue5">UE5 Github</div>
+                  <div class="node-topic-keyword topic-AI">AI</div>
+                  <div class="node-topic-keyword topic-teamwork">Teamwork</div>
                 </div> <!--End Node Topics-->
-                <p>I develop the core gameplay mechanics, NPC AI, and tools to expedite development</p>
+                <p>I lead the programming, focusing on AI enemy behavior, camera systems, and gameplay mechanics.
+                  I also managed the Github repository, ensuring smooth collaboration and version control for the team.
+                </p>
 
               </div> <!--End Node Info-->
+
 
 
 
@@ -211,7 +220,7 @@
               <div class="node-info node-info--centered">
                 <a href="./barguzin/index.html" class="video-container" style=" display: block;">
                   <video class="node-video" muted loop playsinline src="assets/BARGUZINPortfolioClip.mp4"></video>
-                <div class="node-info-details">Click for more info</div>
+                  <div class="node-info-details">Click for more info</div>
                 </a>
               </div> <!--End Node Info-->
             </div><!--End Node Contents-->
@@ -222,6 +231,108 @@
               <!--Start Node Info (This info is a vertical section to list details) &#x25B6;-->
               <div class="node-info interact_icon node-lineAnchor">
                 <a href="#node-jump3" target="_blank"><img id="anchor3" src="assets/Icon Path Arrow (Full).png"
+                    alt="Arrow"></img></a>
+              </div> <!--End Node Info-->
+            </div><!--End Node Contents-->
+
+
+
+          </div> <!--End Node Body-->
+        </div> <!--End Node-->
+      </div> <!--End Node group-->
+      <!-- --------------------------------------------------------------------------------------------------------- -->
+
+
+      <!-- --------------------------------------------------------------------------------------------------------- -->
+      <!-- Start Node Group (Contact) -->
+      <div class="node-group" id="bio-section">
+
+        <!--Start Node Home/Welcome-->
+        <div class="node" id="node-jump3" style="width: 75pc;">
+
+          <div class="node-header" style="background-color: #35bfff">
+            <p>Quick Bio and contact!</p>
+            <div class="node-visible"><img src="assets/Node-Visible-Open.png" alt="Toggle visibility" draggable="false">
+            </div>
+          </div>
+          <!-- Start Node Body (The gray are that stores all the info) -->
+          <div class="node-body">
+            <div class="node-contents lineAnchor-divider" href="#">
+
+              <!--Start Node Info (This info is a vertical section to list details) &#x25B6;-->
+              <div class="node-info interact_icon node-lineAnchor">
+                <a href="#node-jump3" target="_blank"><img id="anchor4" src="assets/Icon Path Arrow (Full).png"
+                    alt="Arrow"></img></a>
+              </div> <!--End Node Info-->
+            </div><!--End Node Contents-->
+
+            <div class="node-contents" href="#">
+
+              <div class="node-info">
+
+                <!--Node Topics-->
+                <div class="node-topics">
+                  <div class="node-topic-keyword topic-info">Info</div>
+
+                </div> <!--End Node Topics-->
+                <p>Collab and reach out via my <a href="https://www.linkedin.com/in/andrew-dresel-kurtz/" target="_blank" rel="noopener noreferrer" style="color: white;text-decoration: underline;">LinkedIn</a> 
+                  or <a href="mailto:mechandrewdk@gmail.com" style="color: white;text-decoration: underline;">email</a>!
+                </p>
+
+              </div> <!--End Node Info-->
+
+              <!--Start Node Info (This info is a vertical section to list details)-->
+              <div class="node-info">
+
+                <!--Node Topics-->
+                <div class="node-topics">
+                  <div class="node-topic-keyword topic-gamedev">Gamedev</div>
+                  <div class="node-topic-keyword topic-info">Info</div>
+                </div> <!--End Node Topics-->
+                <p>I first started my game development journey by modding Minecraft and designing my own assets and
+                  minigames.</p>
+
+              </div> <!--End Node Info-->
+
+              <div class="node-info">
+
+                <!--Node Topics-->
+                <div class="node-topics">
+                  <div class="node-topic-keyword topic-info">Info</div>
+                  <div class="node-topic-keyword topic-ue5">UE5</div>
+                  <div class="node-topic-keyword topic-blender">Blender</div>
+                  <div class="node-topic-keyword topic-photoshop">Photoshop</div>
+
+                </div> <!--End Node Topics-->
+                <p>I earned my BA in game design at UC Santa Cruz learning a variety of programming languages, 2D, and
+                  3D modeling softwares and techniques.
+                  My three specialized softwares are Unreal Engine 5, Blender, and Photohop.
+                </p>
+
+              </div> <!--End Node Info-->
+
+            </div><!--End Node Contents-->
+
+
+            <div class="node-contents" href="#" style="border: 2px solid #ccc; border-radius: 8px; ">
+
+              <!--Start Node Info (This info is a vertical section to list details)-->
+              <div class="node-info">
+
+                <a href="./contact" class="video-container" style=" display: block;">
+                  <div class="node-info-details">Click for more info</div>
+                  <img class="node-video" muted loop playsinline src="assets/Icon LinkedIn.png"></img>
+                </a>
+
+              </div> <!--End Node Info-->
+            </div><!--End Node Contents-->
+
+            <!-- Start Node Contents Arrow -->
+            <div class="node-contents lineAnchor-divider" href="#">
+
+              <!--Start Node Info (This info is a vertical section to list details) &#x25B6;-->
+              <div class="node-info interact_icon node-lineAnchor">
+                <a href="#node-jump4" target="_blank"><img id="anchor5" src="assets/Icon Path Arrow (Full).png"
                     alt="Arrow"></img></a>
               </div> <!--End Node Info-->
             </div><!--End Node Contents-->
