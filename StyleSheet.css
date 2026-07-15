@@ -434,6 +434,7 @@ canvas {
 }
 
 .graph-area {
+    contain: layout paint;
     /* flex: 1; */
     /* padding: 20px;
     background: repeating-linear-gradient(45deg, #313131, #313131 20px, #373737 20px, #373737 40px);
@@ -848,13 +849,17 @@ align-self: center;
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: clamp(1rem, 2vw, 2.5rem); 
+    font-size: clamp(0.9rem, 1.6vw, 2rem);
+    line-height: 1.1;
     text-align: center;
     font-family: Bahnschrift SemiBold;
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: auto;
-    white-space: nowrap;
+    white-space: normal;
+    overflow: hidden;
+    word-break: break-word;
+    padding: 0.35rem 0.45rem;
 }
 
 /* Center and size single images in video-container */
@@ -895,6 +900,10 @@ align-self: center;
     z-index: 99999;
     border-radius: 0;
     transition: all 300ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 }
 
 .info-preview-clone--expanded {
@@ -907,6 +916,8 @@ align-self: center;
 .info-preview-clone img {
     width: 100% !important;
     height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     object-fit: contain !important;
 }
 

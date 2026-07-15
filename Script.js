@@ -12,6 +12,8 @@ let isScrollingFromRotation = false;
 let introSpinRafId = null;
 let isIntroSpinning = false;
 let programScrollRaf = null;
+let graphAreaScrollRaf = null;
+let resizeRafId = null;
 
 let logoVelocity = 0;
 let isLogoMomentum = false;
@@ -350,16 +352,29 @@ function updateScrollNotifyOnScroll() {
   }
 }
 
-// Sync rotation to horizontal scroll
-graphArea.addEventListener('scroll', (e) => {
+function scheduleGraphAreaUpdate() {
+  if (!graphArea) return;
+  if (graphAreaScrollRaf) return;
+
+  graphAreaScrollRaf = requestAnimationFrame(() => {
+    graphAreaScrollRaf = null;
+    draw();
+    updateScrollNotifyOnScroll();
+  });
+}
+
+function handleGraphAreaScroll() {
   const scrollDelta = graphArea.scrollLeft - lastScrollLeft;
   currentRotation += scrollDelta * scrollToRotationFactor;
-  
+
   renderScrollLogoTransform();
   lastScrollLeft = graphArea.scrollLeft;
 
-  updateScrollNotifyOnScroll();
-});
+  scheduleGraphAreaUpdate();
+}
+
+// Sync rotation to horizontal scroll
+graphArea.addEventListener('scroll', handleGraphAreaScroll, { passive: true });
 // End Scroll Notify Area
 
 
@@ -456,7 +471,30 @@ document.querySelectorAll('a[href^="#node-jump"], a[href^="#work_detail"]').forE
 
 
 	//Play Video when hovered
+function fitNodeInfoDetailsText() {
+  document.querySelectorAll('.node-info-details').forEach(label => {
+    if (!label || !label.parentElement) return;
+
+    label.style.fontSize = '';
+    label.style.whiteSpace = 'normal';
+    label.style.overflow = 'hidden';
+    label.style.display = 'flex';
+    label.style.alignItems = 'center';
+    label.style.justifyContent = 'center';
+
+    let size = parseFloat(getComputedStyle(label).fontSize) || 24;
+    while (size > 10) {
+      label.style.fontSize = `${size}px`;
+      if (label.scrollHeight <= label.clientHeight && label.scrollWidth <= label.clientWidth) {
+        break;
+      }
+      size -= 1;
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  fitNodeInfoDetailsText();
   const containers = document.querySelectorAll(".video-container");
 
   containers.forEach(container => {
@@ -490,6 +528,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const previewLinks = document.querySelectorAll('a.info-preview');
   let activeFullscreenClone = null;
   let activePreviewOriginal = null;
+
+  const getViewportPreviewSize = () => ({
+    width: Math.min(window.innerWidth, document.documentElement.clientWidth),
+    height: Math.min(window.innerHeight, document.documentElement.clientHeight)
+  });
 
   const closeFullscreenPreview = () => {
     if (!activeFullscreenClone || !activePreviewOriginal) return;
@@ -536,13 +579,13 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.appendChild(clone);
       document.body.style.overflow = 'hidden';
 
-      const graphRect = graphArea.getBoundingClientRect();
+      const viewport = getViewportPreviewSize();
       requestAnimationFrame(() => {
         clone.classList.add('info-preview-clone--expanded');
-        clone.style.top = `${graphRect.top}px`;
-        clone.style.left = `${graphRect.left}px`;
-        clone.style.width = `${graphRect.width}px`;
-        clone.style.height = `${graphRect.height}px`;
+        clone.style.top = '0px';
+        clone.style.left = '0px';
+        clone.style.width = `${viewport.width}px`;
+        clone.style.height = `${viewport.height}px`;
         clone.style.borderRadius = '0';
       });
 
@@ -561,6 +604,8 @@ document.addEventListener("DOMContentLoaded", () => {
       activeFullscreenClone = clone;
     });
   });
+
+  window.addEventListener('resize', fitNodeInfoDetailsText);
 });
 // Play video when hovered
 
@@ -652,11 +697,18 @@ const ctx = canvas.getContext("2d");
 
 // Helper to resize canvas to fit graph-area
 function resizeCanvasToGraphArea() {
-  // Set canvas size to match the FULL scrollable area, not just visible area
-  canvas.width = graphArea.scrollWidth;
-  canvas.height = graphArea.scrollHeight;
-  canvas.style.width = graphArea.scrollWidth + "px";
-  canvas.style.height = graphArea.scrollHeight + "px";
+  if (!graphArea || !canvas) return;
+
+  const width = graphArea.scrollWidth;
+  const height = graphArea.scrollHeight;
+
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
   canvas.style.left = 0;
   canvas.style.top = 0;
 }
@@ -837,21 +889,21 @@ window.addEventListener("load", () => {
   runInitialLogoSpin();
 });
 
-// Handle resize
-window.addEventListener("resize", () => {
-  refreshGraphLayout();
-});
+function scheduleRefreshGraphLayout() {
+  if (resizeRafId) return;
 
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', () => {
+  resizeRafId = requestAnimationFrame(() => {
+    resizeRafId = null;
     refreshGraphLayout();
   });
 }
 
-// Redraw on graph-area scroll (not window scroll)
-graphArea.addEventListener("scroll", () => {
-  draw(); // Draw immediately on every scroll for smooth updates
-});
+// Handle resize
+window.addEventListener("resize", scheduleRefreshGraphLayout);
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', scheduleRefreshGraphLayout);
+}
 
 // Redraw on content changes (MutationObserver for dynamic content)
 const observer = new MutationObserver(scheduleDraw);
